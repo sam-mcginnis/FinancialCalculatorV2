@@ -9,7 +9,6 @@
   .our_solution_category .solution_cards_box {
     display: flex;
     flex-direction: column;
-    justify-content: center;
   }
   .solution_cards_box .solution_card {
     flex: 0 50%;
@@ -22,7 +21,7 @@
     position: relative;
     z-index: 1;
     overflow: hidden;
-    min-height: 265px;
+    min-height: 350px;
     transition: 0.7s;
   }
   
@@ -46,8 +45,8 @@
     content: "";
     position: absolute;
     background: rgba(0, 47, 255, 0.05);
-    width: 170px;
-    height: 400px;
+    width: 230px;
+    height: 700px;
     z-index: -1;
     transform: rotate(42deg);
     right: -56px;
@@ -78,9 +77,9 @@
     border-radius: 15px;
     background: linear-gradient(
       140deg,
-      #42c3ca 0%,
-      #42c3ca 50%,
-      #42c3cac7 75%
+      #56eba0 0%,
+      #41ffa0 50%,
+      #32eb8e 75%
     ) !important;
     color: #fff;
     font-weight: 500;
