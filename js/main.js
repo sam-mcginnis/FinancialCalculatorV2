@@ -91,9 +91,9 @@ function DateTime() {
 
 
 var dt = new DateTime();
-$('.day').text(dt.formats.pretty.a);
-$('.date').text(dt.formats.pretty.b);
-$('.month').text(dt.formats.pretty.c);
-$('.year').text(dt.formats.pretty.d);
+$('.headerDay').text(dt.formats.pretty.a);
+$('.headerDate').text(dt.formats.pretty.b);
+$('.headerMonth').text(dt.formats.pretty.c);
+$('.headerYear').text(dt.formats.pretty.d);
 
 })(jQuery);

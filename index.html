@@ -5,20 +5,23 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="will fill later.....">
+    <meta name="author" content="Sam McGinnis">
 
     <title>Sam's Calculator</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+
     <link rel="stylesheet" href="./css/header.css">
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/dateStyle.css">
+    <link rel="stylesheet" href="./css/todoList.css">
+    <link rel="stylesheet" href="./css/calendar.css">
 
     <link rel="shortcut icon" href="./images/favi.png" type="image/x-icon">
 
 </head>
 <body>
-<div class="section_our_solution">
   <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12">
       <div class="our_solution_category">
@@ -38,19 +41,107 @@
               <button type="button" class="read_more_btn">Upload File</button>
             </div>
             <div class="today">
-              <div class="today-piece  top  day"></div>
-              <div class="today-piece  middle  month"></div>
-              <div class="today-piece  middle  date"></div>
-              <div class="today-piece  bottom  year"></div>
+              <div class="today-piece  top  headerDay"></div>
+              <div class="today-piece  middle  headerMonth"></div>
+              <div class="today-piece  middle  headerDate"></div>
+              <div class="today-piece  bottom  headerYear"></div>
             </div>
           </div>
       </div>
     </div>
   </div>
 </div>
+<div class="row">
+  <div class="col-lg-6 col-md-6 col-sm-6">
+    <div class="ml-5 mr-5" id="page-content">
+      <div class="card px-3">
+          <div class="card-body">
+              <h4 class="card-title">Monthly Todo list</h4>
+              <div class="add-items d-flex"> <input type="text" class="form-control todo-list-input" placeholder="What do you need to do this month?"> <button class="add btn font-weight-bold todo-list-add-btn ml-auto">Add</button> </div>
+              <div class="list-wrapper">
+                  <ul class="d-flex flex-column-reverse todo-list">
+                      <li>
+                          <div class="form-check"> <label class="form-check-label"> <input class="checkbox" type="checkbox"> Finish calculator v2 <i class="input-helper"></i></label> </div> <i class="remove fa fa-trash-o"></i>
+                      </li>
+            
+                  </ul>
+              </div>
+          </div>
+      </div>
+  </div>
+  </div>
+  <div class="col-lg-6 col-md-6 col-sm-6">
+    <div class="content">
+      <div class="calendar-container">
+        <div class="calendar"> 
+          <div class="year-header"> 
+            <span class="left-button" id="prev"> &lang; </span> 
+            <span class="year" id="label"></span> 
+            <span class="right-button" id="next"> &rang; </span>
+          </div> 
+          <table class="months-table"> 
+            <tbody>
+              <tr class="months-row">
+                <td class="month">Jan</td> 
+                <td class="month">Feb</td> 
+                <td class="month">Mar</td> 
+                <td class="month">Apr</td> 
+                <td class="month">May</td> 
+                <td class="month">Jun</td> 
+                <td class="month">Jul</td>
+                <td class="month">Aug</td> 
+                <td class="month">Sep</td> 
+                <td class="month">Oct</td>          
+                <td class="month">Nov</td>
+                <td class="month">Dec</td>
+              </tr>
+            </tbody>
+          </table> 
+          
+          <table class="days-table"> 
+            <td class="day">Sun</td> 
+            <td class="day">Mon</td> 
+            <td class="day">Tue</td> 
+            <td class="day">Wed</td> 
+            <td class="day">Thu</td> 
+            <td class="day">Fri</td> 
+            <td class="day">Sat</td>
+          </table> 
+          <div class="frame"> 
+            <table class="dates-table"> 
+                <tbody class="tbody">             
+                </tbody> 
+            </table>
+          </div> 
+          <button class="button" id="add-button">Add Event</button>
+        </div>
+      </div>
+      <div class="events-container">
+      </div>
+      <div class="dialog" id="dialog">
+          <h2 class="dialog-header"> Add New Event </h2>
+          <form class="form" id="form">
+            <div class="form-container" align="center">
+              <label class="form-label" id="valueFromMyButton" for="name">Event name</label>
+              <input class="input" type="text" id="name" maxlength="36">
+              <label class="form-label" id="valueFromMyButton" for="count">Number of people to invite</label>
+              <input class="input" type="number" id="count" min="0" max="1000000" maxlength="7">
+              <input type="button" value="Cancel" class="button" id="cancel-button">
+              <input type="button" value="OK" class="button" id="ok-button">
+            </div>
+          </form>
+        </div>
+    </div>
+  </div>
+</div>
+
 </body>
 <script src="./js/jquery.min.js"></script>
 <script src="./js/popper.js"></script>
 <script src="./js/bootstrap.min.js"></script>
 <script src="./js/main.js"></script>
+<script src="./js/todoList.js"></script>
+<script src="./js/calender.js"></script>
+
+
 </html>
