@@ -1,4 +1,8 @@
-// Setup the calendar with the current date
+(function($) {
+
+	"use strict";
+
+	// Setup the calendar with the current date
 $(document).ready(function(){
     var date = new Date();
     var today = date.getDate();
@@ -220,7 +224,7 @@ var event_data = {
     {
         "occasion": " Repeated Test Event ",
         "invited_count": 120,
-        "year": 2017,
+        "year": 2020,
         "month": 5,
         "day": 10,
         "cancelled": true
@@ -228,7 +232,7 @@ var event_data = {
     {
         "occasion": " Repeated Test Event ",
         "invited_count": 120,
-        "year": 2017,
+        "year": 2020,
         "month": 5,
         "day": 10,
         "cancelled": true
@@ -236,7 +240,7 @@ var event_data = {
         {
         "occasion": " Repeated Test Event ",
         "invited_count": 120,
-        "year": 2017,
+        "year": 2020,
         "month": 5,
         "day": 10,
         "cancelled": true
@@ -244,14 +248,14 @@ var event_data = {
     {
         "occasion": " Repeated Test Event ",
         "invited_count": 120,
-        "year": 2017,
+        "year": 2020,
         "month": 5,
         "day": 10
     },
         {
         "occasion": " Repeated Test Event ",
         "invited_count": 120,
-        "year": 2017,
+        "year": 2020,
         "month": 5,
         "day": 10,
         "cancelled": true
@@ -259,14 +263,14 @@ var event_data = {
     {
         "occasion": " Repeated Test Event ",
         "invited_count": 120,
-        "year": 2017,
+        "year": 2020,
         "month": 5,
         "day": 10
     },
         {
         "occasion": " Repeated Test Event ",
         "invited_count": 120,
-        "year": 2017,
+        "year": 2020,
         "month": 5,
         "day": 10,
         "cancelled": true
@@ -274,14 +278,14 @@ var event_data = {
     {
         "occasion": " Repeated Test Event ",
         "invited_count": 120,
-        "year": 2017,
+        "year": 2020,
         "month": 5,
         "day": 10
     },
         {
         "occasion": " Repeated Test Event ",
         "invited_count": 120,
-        "year": 2017,
+        "year": 2020,
         "month": 5,
         "day": 10,
         "cancelled": true
@@ -289,14 +293,14 @@ var event_data = {
     {
         "occasion": " Repeated Test Event ",
         "invited_count": 120,
-        "year": 2017,
+        "year": 2020,
         "month": 5,
         "day": 10
     },
     {
         "occasion": " Test Event",
         "invited_count": 120,
-        "year": 2017,
+        "year": 2020,
         "month": 5,
         "day": 11
     }
@@ -317,3 +321,5 @@ const months = [
     "November", 
     "December" 
 ];
+
+})(jQuery);

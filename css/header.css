@@ -1,6 +1,6 @@
-  body {
-    overflow-x:hidden
-  }
+body{
+  overflow-x: hidden;
+}
   .our_solution_category {
     display: flex;
     flex-direction: row;
