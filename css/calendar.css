@@ -70,6 +70,7 @@
 /*  Calendar wrapper */
 .calendar-container {
   position: relative;
+  overflow-x: scroll;
   margin: 0 auto;
   height: 100%;
   width: 50%;

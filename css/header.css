@@ -1,6 +1,6 @@
-body{
-  overflow-x: hidden;
-}
+  body{
+    overflow-x: hidden;
+  }
   .our_solution_category {
     display: flex;
     flex-direction: row;
@@ -23,6 +23,10 @@ body{
     overflow: hidden;
     min-height: 350px;
     transition: 0.7s;
+  }
+
+  .solu_description{
+    width: 200px;
   }
   
   .solution_cards_box .solution_card:hover {
@@ -62,13 +66,11 @@ body{
   
   .solution_card .solu_title h3 {
     color: #212121;
-    font-size: 1.3rem;
     margin-top: 13px;
     margin-bottom: 13px;
   }
   
   .solution_card .solu_description p {
-    font-size: 15px;
     margin-bottom: 15px;
   }
   
@@ -119,6 +121,29 @@ body{
     height: 50px;
     object-fit: contain;
   }
+
+  .filepond--drop-label {
+    color: #4c4e53;
+  }
+  
+  .filepond--label-action {
+    text-decoration-color: #babdc0;
+  }
+  
+  .filepond--panel-root {
+    border-radius: 2em;
+    background-color: #edf0f4;
+    height: 1em;
+  }
+  
+  .filepond--item-panel {
+    background-color: #595e68;
+  }
+  
+  .filepond--drip-blob {
+    background-color: #7f8a9a;
+  }
+  
   
   /*start media query*/
   @media screen and (min-width: 320px) {

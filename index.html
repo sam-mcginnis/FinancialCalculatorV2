@@ -12,6 +12,8 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/filepond/dist/filepond.min.css">
 
     <link rel="stylesheet" href="./css/header.css">
     <link rel="stylesheet" href="./css/dateStyle.css">
@@ -32,13 +34,13 @@
                 <img src="./images/money.jpg" alt="Money Icon">
             </div>
             <div class="solu_title">
-              <h3>Sam's Financial Calculator</h3>
+              <h3 id="solu_title">Sam's Financial Calculator</h3>
             </div>
-            <div class="solu_description">
-              <p>
+            <div class="mt-5 solu_description">
+              <p id="solu_description">
                 Upload your expenditures below
               </p>
-              <button type="button" class="read_more_btn">Upload File</button>
+              <input type="file" class="filepond" name="filepond" multiple data-max-file-size="3MB" data-max-files="3" />
             </div>
             <div class="today">
               <div class="today-piece  top  headerDay"></div>
@@ -53,7 +55,7 @@
 </div>
 <div class="row">
   <div class="col-lg-6 col-md-6 col-sm-6">
-    <div class="ml-5 mr-5" id="page-content">
+    <div class="ml-5 mr-5 mt-2" id="page-content">
       <div class="card px-3">
           <div class="card-body">
               <h4 class="card-title">Monthly Todo list</h4>
@@ -61,7 +63,7 @@
               <div class="list-wrapper">
                   <ul class="d-flex flex-column-reverse todo-list">
                       <li>
-                          <div class="form-check"> <label class="form-check-label"> <input class="checkbox" type="checkbox"> Finish calculator v2 <i class="input-helper"></i></label> </div> <i class="remove fa fa-trash-o"></i>
+                          <div class="form-check"> <label class="form-check-label"> <input class="checkbox" type="checkbox"> Develop charts <i class="input-helper"></i></label> </div> <i class="remove fa fa-trash-o"></i>
                       </li>
             
                   </ul>
@@ -71,7 +73,7 @@
   </div>
   </div>
   <div class="col-lg-6 col-md-6 col-sm-6">
-    <div class="ml-5 mr-5">
+    <div class="ml-5 mr-5 mt-2">
       <div class="content">
         <div class="calendar-container">
           <div class="calendar"> 
@@ -136,17 +138,29 @@
     </div>      
   </div>
 </div>
-<div class="row">
-<br>
+<div class="row mt-5">
+  <div class="col-10 mx-auto mt-5">
+    <canvas id="myChart"></canvas>
+  </div>
 </div>
-
 </body>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script src="./js/jquery.fittext.js"></script>
+<script src="./js/chartUtils.js"></script>
 <script src="./js/jquery.min.js"></script>
 <script src="./js/popper.js"></script>
 <script src="./js/bootstrap.min.js"></script>
 <script src="./js/main.js"></script>
 <script src="./js/todoList.js"></script>
 <script src="./js/calendar.js"></script>
-
+<script src="./js/barChart.js"></script>
+<script src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.min.js"></script>
+<script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.min.js"></script>
+<script src="https://unpkg.com/filepond-plugin-image-exif-orientation/dist/filepond-plugin-image-exif-orientation.min.js"></script>
+<script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.js"></script>
+<script src="https://unpkg.com/filepond/dist/filepond.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="./js/fileUploadUtils.js"></script>
 
 </html>
