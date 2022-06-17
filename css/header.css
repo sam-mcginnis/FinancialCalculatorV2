@@ -2,7 +2,7 @@
     overflow-x: hidden;
   }
   .our_solution_category {
-    display: flex;
+  
     flex-direction: row;
     flex-wrap: wrap;
   }
@@ -77,16 +77,10 @@
   .solution_card .solu_description button {
     border: 0;
     border-radius: 15px;
-    background: linear-gradient(
-      140deg,
-      #56eba0 0%,
-      #41ffa0 50%,
-      #32eb8e 75%
-    ) !important;
+    
     color: #fff;
     font-weight: 500;
     font-size: 1rem;
-    padding: 5px 16px;
   }
   
   .hover_color_bubble {

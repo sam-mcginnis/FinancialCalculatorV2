@@ -14,6 +14,15 @@ FilePond.registerPlugin(
 );
 
 // Select the file input and use create() to turn it into a pond
-FilePond.create(
-	document.querySelector('input')
+const pond = FilePond.create(
+	document.querySelector('#filepond')
 );
+
+$('.filepond').on('FilePond:addfile', function (e) {
+    console.log('file added event', pond.getFile().file);
+	
+	Papa.parse(pond.getFile().file, {
+		complete: function(results) {
+			console.log("Finished:", results.data);
+		}
+	});});

@@ -40,7 +40,6 @@
               <p id="solu_description">
                 Upload your expenditures below
               </p>
-              <input type="file" class="filepond" name="filepond" multiple data-max-file-size="3MB" data-max-files="3" />
             </div>
             <div class="today">
               <div class="today-piece  top  headerDay"></div>
@@ -53,7 +52,7 @@
     </div>
   </div>
 </div>
-<div class="row">
+<div class="row mt-5">
   <div class="col-lg-6 col-md-6 col-sm-6">
     <div class="ml-5 mr-5 mt-2" id="page-content">
       <div class="card px-3">
@@ -140,27 +139,33 @@
 </div>
 <div class="row mt-5">
   <div class="col-10 mx-auto mt-5">
+    <input type="file" class="filepond" id="filepond" name="filepond" multiple data-max-file-size="3MB" data-max-files="3" />
+  </div>
+</div>
+<div class="row mt-5">
+  <div class="col-10 mx-auto mt-5">
     <canvas id="myChart"></canvas>
   </div>
 </div>
+<br>
 </body>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-<script src="./js/jquery.fittext.js"></script>
-<script src="./js/chartUtils.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="./js/jquery.min.js"></script>
+<script src="./js/jquery.fittext.js"></script>
 <script src="./js/popper.js"></script>
 <script src="./js/bootstrap.min.js"></script>
 <script src="./js/main.js"></script>
 <script src="./js/todoList.js"></script>
 <script src="./js/calendar.js"></script>
+<script src="./js/chartUtils.js"></script>
 <script src="./js/barChart.js"></script>
 <script src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.min.js"></script>
 <script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.min.js"></script>
 <script src="https://unpkg.com/filepond-plugin-image-exif-orientation/dist/filepond-plugin-image-exif-orientation.min.js"></script>
 <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.js"></script>
 <script src="https://unpkg.com/filepond/dist/filepond.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://unpkg.com/papaparse@5.3.2/papaparse.min.js"></script>
 <script src="./js/fileUploadUtils.js"></script>
 
 </html>
