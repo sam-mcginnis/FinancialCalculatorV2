@@ -1,44 +1,47 @@
 
 
-const labels = MONTHS
+
 const data = {
-  labels: labels,
+  labels: ["first", "second", "last"],
   datasets: [{
-    label: 'My First Dataset',
-    data: [65, 59, 80, 81, 56, 55, 40],
-    backgroundColor: [
-      'rgba(255, 99, 132, 0.2)',
-      'rgba(255, 159, 64, 0.2)',
-      'rgba(255, 205, 86, 0.2)',
-      'rgba(75, 192, 192, 0.2)',
-      'rgba(54, 162, 235, 0.2)',
-      'rgba(153, 102, 255, 0.2)',
-      'rgba(201, 203, 207, 0.2)'
-    ],
-    borderColor: [
-      'rgb(255, 99, 132)',
-      'rgb(255, 159, 64)',
-      'rgb(255, 205, 86)',
-      'rgb(75, 192, 192)',
-      'rgb(54, 162, 235)',
-      'rgb(153, 102, 255)',
-      'rgb(201, 203, 207)'
-    ],
-    borderWidth: 1
+    label: "Earened",
+    data: [],
+    backgroundColor: "rgb(154,205,50, 0.75)",
+    borderColor: "#adff2f",
+    borderWidth: 2
+  },
+  {
+    label: "Spent",
+    data: [],
+    backgroundColor: "rgb(220,20,60, 0.75)",
+    borderColor: "#FF0000",
+    borderWidth: 2
+  },
+  {
+    label: "Net Amount",
+    data: [],
+    backgroundColor: "rgb(65,105,225, 0.75)",
+    borderColor: "#87CEFA",
+    borderWidth: 2
   }]
 };
-  const config = {
-    type: 'bar',
-    data: data,
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
+const config = {
+  type: 'bar',
+  data: data,
+  options: {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Monthly Income'
       }
-    },
-  };
-  const myChart = new Chart(
+    }
+  },
+};
+  const myBarChart = new Chart(
     document.getElementById('myChart'),
     config
   );

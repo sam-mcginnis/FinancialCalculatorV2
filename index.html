@@ -12,13 +12,12 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
-    <link rel="stylesheet" href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/filepond/dist/filepond.min.css">
 
     <link rel="stylesheet" href="./css/header.css">
     <link rel="stylesheet" href="./css/dateStyle.css">
     <link rel="stylesheet" href="./css/todoList.css">
     <link rel="stylesheet" href="./css/calendar.css">
+    <link rel="stylesheet" href="./css/fileUpload.css">
 
     <link rel="shortcut icon" href="./images/favi.png" type="image/x-icon">
 
@@ -138,8 +137,32 @@
   </div>
 </div>
 <div class="row mt-5">
-  <div class="col-10 mx-auto mt-5">
-    <input type="file" class="filepond" id="filepond" name="filepond" multiple data-max-file-size="3MB" data-max-files="3" />
+  <div class="col-lg-3 col-md-6 col-sm-12 ml-5 mr-5 mt-5">
+    <div class="upload">
+    <div class="upload-files">
+      <header>
+      <p>
+        <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+        <span class="up">up</span>
+        <span class="load">load</span>
+      </p>
+      </header>
+      <div class="body" id="drop">
+      <i class="fa fa-file-text-o pointer-none" aria-hidden="true"></i>
+      <p class="pointer-none"><b>Drag and drop</b> files here <br /> or <a href="" id="triggerFile">browse</a> to begin the upload</p>
+          <input type="file" multiple="multiple" />
+      </div>
+      <footer>
+      <div class="divider">
+        <span><AR>FILES</AR></span>
+      </div>
+      <div class="list-files">
+        <!--   template   -->
+      </div>
+          <button class="importar mr-3">UPDATE FILES</button>
+      </footer>
+    </div>
+    </div>
   </div>
 </div>
 <div class="row mt-5">
@@ -160,11 +183,6 @@
 <script src="./js/calendar.js"></script>
 <script src="./js/chartUtils.js"></script>
 <script src="./js/barChart.js"></script>
-<script src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.min.js"></script>
-<script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.min.js"></script>
-<script src="https://unpkg.com/filepond-plugin-image-exif-orientation/dist/filepond-plugin-image-exif-orientation.min.js"></script>
-<script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.js"></script>
-<script src="https://unpkg.com/filepond/dist/filepond.min.js"></script>
 <script src="https://unpkg.com/papaparse@5.3.2/papaparse.min.js"></script>
 <script src="./js/fileUploadUtils.js"></script>
 
