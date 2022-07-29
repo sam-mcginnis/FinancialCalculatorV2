@@ -84,23 +84,49 @@ App.init = function () {
   $("input[type=file]").addEventListener("change", handleFileSelect);
 }();
 
-function getTotalCreditAndDebits(results){
-  console.log(results[2][2])
-  data.datasets[0].data.push(results[2][2])
-  myBarChart.update()
-}
 
 function processData(files){
-  for(let i in files){
+  let toggle = $("#toggleTitleCheckbox")
 
+  //parses debit and credit card statments
+  //and converts to an array
+  for(let i in files){
     Papa.parse(files[i], {
       complete: function(results) {
-        if(files[i].name.includes("stmt")){
-          getTotalCreditAndDebits(results.data)
-        } 
-         console.log("Finished:" + files[i].name, results.data);
+        if(!toggle.checked){
+          if(files[i].name.includes("stmt")){
+            debitCardAccFile = results.data
+          }
+          else{
+            creditCardAccFile = results.data
+          }
+        }
+        else{
+          if(files[i].name.includes("rejectedDescriptions")){
+            rejectedDescriptionsFile = results.data
+          }
+          else{
+            let categoryList = []
+            categoryList.push(files[i].name.substring(0, files[i].name.indexOf(".")))
+            categoryList.push(results.data)
+            spendingCategories.push(categoryList)
+          }
+        }
       }
-  });
+    });
   }
 
 }
+
+function isToggleChecked(){
+  let toggle = $("#toggleTitleCheckbox")
+  let toggleTitle = $("#uploadToggleTitle")
+  if(toggle.checked){
+    toggleTitle.innerHTML = "Categories"
+  }
+  else{
+    toggleTitle.innerHTML = "Statments"
+  }
+}
+
+$("#toggleTitleCheckbox").addEventListener("click", isToggleChecked)

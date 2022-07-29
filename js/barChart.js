@@ -1,9 +1,7 @@
-
-
-
 const data = {
-  labels: ["first", "second", "last"],
-  datasets: [{
+  labels: [],
+  datasets: [
+    {
     label: "Earened",
     data: [],
     backgroundColor: "rgb(154,205,50, 0.75)",
@@ -23,7 +21,8 @@ const data = {
     backgroundColor: "rgb(65,105,225, 0.75)",
     borderColor: "#87CEFA",
     borderWidth: 2
-  }]
+  }
+]
 };
 const config = {
   type: 'bar',

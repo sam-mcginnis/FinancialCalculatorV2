@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="./css/todoList.css">
     <link rel="stylesheet" href="./css/calendar.css">
     <link rel="stylesheet" href="./css/fileUpload.css">
+    <link rel="stylesheet" href="./css/toggle.css">
+
 
     <link rel="shortcut icon" href="./images/favi.png" type="image/x-icon">
 
@@ -57,7 +59,7 @@
       <div class="card px-3">
           <div class="card-body">
               <h4 class="card-title">Monthly Todo list</h4>
-              <div class="add-items d-flex"> <input type="text" class="form-control todo-list-input" placeholder="What do you need to do this month?"> <button class="add btn font-weight-bold todo-list-add-btn ml-auto">Add</button> </div>
+              <div class="add-items d-flex"> <input type="text" class="form-control todo-list-input" placeholder="What do you need to do this month?"> <button class="add specialBtn font-weight-bold todo-list-add-btn ml-auto">Add</button> </div>
               <div class="list-wrapper">
                   <ul class="d-flex flex-column-reverse todo-list">
                       <li>
@@ -137,14 +139,21 @@
   </div>
 </div>
 <div class="row mt-5">
-  <div class="col-lg-3 col-md-6 col-sm-12 ml-5 mr-5 mt-5">
+  <div class="col-lg-4 col-md-6 col-sm-12">
     <div class="upload">
     <div class="upload-files">
       <header>
       <p>
+        <label class="switch">
+          <input type="checkbox" id="toggleTitleCheckbox">
+          <span class="mt-2 ml-2 mr-5"></span>
+      </label>
         <i class="fa fa-cloud-upload" aria-hidden="true"></i>
         <span class="up">up</span>
         <span class="load">load</span>
+      </p>
+      <p id="uploadToggleTitle">
+          Statements
       </p>
       </header>
       <div class="body" id="drop">
@@ -164,10 +173,51 @@
     </div>
     </div>
   </div>
+  <div class="col-lg-4 col-md-6 col-sm-12 my-auto">
+    <button type="button" id="addDataBtn" class="btn btn-primary btn-lg btn-block mb-3">Add Data</button>
+    <button type="button" class="btn btn-secondary btn-lg btn-block mt-3">Delete Data</button>
+  </div>
 </div>
 <div class="row mt-5">
-  <div class="col-10 mx-auto mt-5">
-    <canvas id="myChart"></canvas>
+  <div class="col-lg-10 col-md-11 col-sm-12 mx-auto mt-5">
+    <div class="card">
+      <div class="card-header">
+        <div class="text-right">
+          <button id="leftYearButton" class="btn btn-primary"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i></button>
+          &nbsp;<span><strong class="yearHeader">Year</strong></span>&nbsp;
+          <button id="RightYearButton" class="btn btn-primary"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></button>
+        </div>
+      </div>
+      <div class="card-body">
+        <canvas id="myChart"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row mt-5">
+  <div class="col-lg-5 col-md-10 col-sm-12 mx-auto mt-5">
+    <div class="card">
+      <div class="card-header">
+        <div class="text-right">
+          <span><strong class="yearHeader">Year</strong></span>
+        </div>
+      </div>
+      <div class="card-body">
+        <canvas id="myLineChart"></canvas>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-5 col-md-10 col-sm-12 mx-auto mt-5">
+    <div class="card">
+      <div class="card-header">
+        <div class="text-right">
+          <span><strong class="yearHeader">Year</strong></span>
+        </div>
+      </div>
+      <div class="card-body">
+        <canvas id="mydoughnutChart"></canvas>
+      </div>
+    </div>
   </div>
 </div>
 <br>
@@ -181,9 +231,11 @@
 <script src="./js/main.js"></script>
 <script src="./js/todoList.js"></script>
 <script src="./js/calendar.js"></script>
-<script src="./js/chartUtils.js"></script>
 <script src="./js/barChart.js"></script>
+<script src="./js/lineChart.js"></script>
+<script src="./js/doughnutChart.js"></script>
 <script src="https://unpkg.com/papaparse@5.3.2/papaparse.min.js"></script>
 <script src="./js/fileUploadUtils.js"></script>
+<script src="./js/chartUtils.js"></script>
 
 </html>

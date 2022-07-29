@@ -18,13 +18,17 @@
   background: #4db6ac;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
-  text-align: center;
 }
-.upload .upload-files header p {
+.upload .upload-files header p:first-child {
   color: #fff;
   font-size: 40px;
-  margin: 0;
-  padding: 50px 0;
+}
+.upload .upload-files header p:nth-of-type(2) {
+  color: #fff;
+  font-size: 30px;
+  text-align: center;
+  font-weight: 100;
+
 }
 .upload .upload-files header p i {
   transform: translateY(20px);
