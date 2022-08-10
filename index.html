@@ -12,6 +12,7 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+    <link href="https://unpkg.com/@pqina/flip/dist/flip.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="./css/header.css">
     <link rel="stylesheet" href="./css/dateStyle.css">
@@ -139,7 +140,7 @@
   </div>
 </div>
 <div class="row mt-5">
-  <div class="col-lg-4 col-md-6 col-sm-12">
+  <div class="col-lg-6 col-md-6 col-sm-12">
     <div class="upload">
     <div class="upload-files">
       <header>
@@ -168,14 +169,32 @@
       <div class="list-files">
         <!--   template   -->
       </div>
-          <button class="importar mr-3">UPDATE FILES</button>
+        <button id="addDataBtn" class="importas ml-4">ADD DATA</button>
+        <button class="importar mr-4">UPDATE FILES</button>
       </footer>
     </div>
     </div>
   </div>
-  <div class="col-lg-4 col-md-6 col-sm-12 my-auto">
-    <button type="button" id="addDataBtn" class="btn btn-primary btn-lg btn-block mb-3">Add Data</button>
-    <button type="button" class="btn btn-secondary btn-lg btn-block mt-3">Delete Data</button>
+  <div class="col-lg-6 col-md-6 col-sm-12 my-auto">
+    <button type="button" id="tickUp">^</button>
+
+    <div class="tick" id="tick1">
+
+    <div data-layout="horizontal fit">
+        
+      <span data-key="month">
+        <span data-view="flip"></span>
+    </span>
+    <span class="tick-text-inline">-</span>
+        <span data-key="year">
+            <span data-view="flip"></span>
+        </span>
+        
+    </div>
+
+</div>
+
+    <button type="button" id="tickDown">v</button>
   </div>
 </div>
 <div class="row mt-5">
@@ -210,7 +229,12 @@
   <div class="col-lg-5 col-md-10 col-sm-12 mx-auto mt-5">
     <div class="card">
       <div class="card-header">
-        <div class="text-right">
+        <div class="float-right">
+          <button id="leftMonthButton" class="btn btn-primary"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i></button>
+          &nbsp;<span><strong id="monthHeader">Month</strong></span>&nbsp;
+          <button id="RightMonthButton" class="btn btn-primary"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></button>
+        </div>
+        <div class="float-left">
           <span><strong class="yearHeader">Year</strong></span>
         </div>
       </div>
@@ -224,6 +248,8 @@
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://unpkg.com/@pqina/flip/dist/flip.min.js"></script>
+<script src="https://unpkg.com/papaparse@5.3.2/papaparse.min.js"></script>
 <script src="./js/jquery.min.js"></script>
 <script src="./js/jquery.fittext.js"></script>
 <script src="./js/popper.js"></script>
@@ -234,8 +260,10 @@
 <script src="./js/barChart.js"></script>
 <script src="./js/lineChart.js"></script>
 <script src="./js/doughnutChart.js"></script>
-<script src="https://unpkg.com/papaparse@5.3.2/papaparse.min.js"></script>
 <script src="./js/fileUploadUtils.js"></script>
+<script src="./js/flipCounter.js"></script>
 <script src="./js/chartUtils.js"></script>
+
+
 
 </html>

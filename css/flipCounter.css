@@ -1,0 +1,26 @@
+.tick-flip {
+  margin-left: .0625em;
+  margin-right: .0625em;
+}
+
+/* border radius of the flipper */
+.tick-flip {
+  border-radius: .125em;
+}
+
+/* color of the flipper */
+.tick-flip-panel {
+  color: #eee;
+  background-color: #333;
+}
+
+/* shadow behind the flipper */
+.tick-flip-shadow {
+  box-shadow: 0 0 1em #000;
+}
+
+/* padding in the flipper (both values should be the same) */
+.tick-flip {
+  letter-spacing: .25em;
+  text-indent: .25em;
+}

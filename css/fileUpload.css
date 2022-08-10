@@ -279,7 +279,6 @@
 .upload .upload-files footer .importar {
   outline: none;
   position: absolute;
-  left: 0;
   right: 0;
   bottom: 20px;
   margin: auto;
@@ -304,6 +303,36 @@
   visibility: visible;
 }
 .upload .upload-files footer .importar:hover {
+  background: #4db6ac;
+  color: #fff;
+}
+.upload .upload-files footer .importas {
+  outline: none;
+  position: absolute;
+  left: 0;
+  bottom: 20px;
+  margin: auto;
+  border: solid 1px #4db6ac;
+  color: #4db6ac;
+  background: transparent;
+  padding: 8px 15px;
+  font-size: 12px;
+  border-radius: 4px;
+  font-family: Roboto;
+  line-height: 1;
+  cursor: pointer;
+  transform: translateY(15px);
+  opacity: 0;
+  visibility: hidden;
+  margin-right: calc(50% - 40px);
+}
+.upload .upload-files footer .importas.active {
+  transition: transform 0.5s 1.5s ease, opacity 0.5s 1.5s ease, background;
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+.upload .upload-files footer .importas:hover {
   background: #4db6ac;
   color: #fff;
 }

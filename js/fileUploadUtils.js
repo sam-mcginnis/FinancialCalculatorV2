@@ -27,12 +27,14 @@ App.init = function () {
     $("#drop").classList.add("hidden");
     $("footer").classList.add("hasFiles");
     $(".importar").classList.add("active");
+    $(".importas").classList.add("active");
+
     setTimeout(() => {
       $(".list-files").innerHTML = template;
     }, 1000);
 
     Object.keys(files).forEach(file => {
-      let load = 2000 + file * 2000; // fake load
+      let load = 2000 + file * 1000; // fake load
       setTimeout(() => {
         $(`.file--${file}`).querySelector(".progress").classList.remove("active");
         $(`.file--${file}`).querySelector(".done").classList.add("anim");
@@ -75,6 +77,7 @@ App.init = function () {
     $(".list-files").innerHTML = "";
     $("footer").classList.remove("hasFiles");
     $(".importar").classList.remove("active");
+    $(".importas").classList.remove("active");
     setTimeout(() => {
       $("#drop").classList.remove("hidden");
     }, 500);

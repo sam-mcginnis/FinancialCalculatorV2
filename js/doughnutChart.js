@@ -4,16 +4,12 @@ const doughnutData = {
     {
       label: "Credit Card",
       data: [],
-      backgroundColor: "rgb(220,20,60, 0.75)",
-      borderColor: "#FF0000",
-      borderWidth: .5
+      backgroundColor: [],
     },
     {
       label: "Debit Card",
       data: [],
-      backgroundColor: "rgb(65,105,225, 0.75)",
-      borderColor: "#87CEFA",
-      borderWidth: .5
+      backgroundColor: "",
     }
   ]
   };
