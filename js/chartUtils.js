@@ -8,6 +8,8 @@ var spendingCategories = []
 var statementsByYear = []
 var currentyYear = 0
 var currentMonth = 0
+var currentTickYear = 0
+var currentTickMonth = 0
 
 //statement file upload
 //converts debit and credit files
@@ -192,6 +194,7 @@ var creditCardAccFile =[]
         categories: categoriesObj.categoryTotals
       }
     }
+    
     //if the statement year doesnt exist
     // push the year and the object in that year
     if(!statementsByYear.some(array => array.includes(chartObject.year))){
@@ -222,6 +225,14 @@ var creditCardAccFile =[]
         break;
       }
     }
+    //update flip deleter
+    currentTickMonth = chartData[0].month
+    currentTickYear =  chartData[0].year
+    tick.value = {
+      month: convertMonth(currentTickMonth),
+      year: currentTickYear 
+    } 
+    
     pushDataToCharts(chartData)
   }
 
@@ -229,7 +240,6 @@ var creditCardAccFile =[]
     let doughnutChartLabels = []
     let doughnutTotal = []
     let doughnutColor = []
-    console.log(data)
 
     data.pie.categories.forEach(category => {
       doughnutChartLabels.push(category[0])
@@ -255,7 +265,6 @@ var creditCardAccFile =[]
     let chartDCAmounts = []
     let chartCCAmounts = []
     
-    console.log(chartData)
     chartData.forEach(element => {
       chartLabels.push(convertMonth(element.month))
       chartIncomes.push(element.graph.earned)
@@ -277,9 +286,8 @@ var creditCardAccFile =[]
 
     //update year in header
     currentyYear = chartData[0].year
-    tick.value.year = currentyYear
-    // tick.value.month = convertMonth(chartData[0].month)
     document.querySelectorAll('.yearHeader').forEach(element => element.innerHTML = chartData[0].year)
+
     myBarChart.update()
     myLineChart.update()
   }
@@ -321,6 +329,7 @@ var creditCardAccFile =[]
       }
     }
   }
+
   function traverseBackAMonth(){
     for(i = 0; i < statementsByYear.length; i++){
       if(statementsByYear[i][0] == currentyYear){
@@ -339,9 +348,14 @@ var creditCardAccFile =[]
 
   function tickUpAYear(){
     for(i = 0; i < statementsByYear.length; i++){
-      if(statementsByYear[i][0] == currentyYear){
+      if(statementsByYear[i][0] == currentTickYear){
         if(statementsByYear[i + 1] != undefined){
-          tick.value = (statementsByYear[i + 1])
+          currentTickYear = statementsByYear[i + 1][0]
+          currentTickMonth = statementsByYear[i + 1][1][0].month
+          tick.value = {
+            month: convertMonth(currentTickMonth),
+            year: currentTickYear
+          } 
         }
         break;
       }
@@ -350,18 +364,69 @@ var creditCardAccFile =[]
  
   function tickDownAYear(){
     for(i = 0; i < statementsByYear.length; i++){
-      if(statementsByYear[i][0] == currentyYear){
+      if(statementsByYear[i][0] == currentTickYear){
         if(statementsByYear[i - 1] != undefined){
-          return statementsByYear[i - 1]
+          currentTickYear = statementsByYear[i - 1][0]
+          currentTickMonth = statementsByYear[i - 1][1][0].month
+          tick.value = {
+            month: convertMonth(currentTickMonth),
+            year: currentTickYear
+          } 
         }
         break;
       }
     }
+  }
+
+  function tickUpAMonth(){
+    for(i = 0; i < statementsByYear.length; i++){
+      if(statementsByYear[i][0] == currentTickYear){
+        let year = statementsByYear[i][1]
+        for(j = 0; j < year.length; j++){
+          if(year[j].month == currentTickMonth){
+            if(year[j + 1] != undefined){
+              currentTickMonth = year[j + 1].month
+              tick.value = {
+                month: convertMonth(currentTickMonth),
+                year: currentTickYear
+              } 
+            }
+            break;
+          }
+        }
+      }
+    }
+  }
+
+  function tickDownAMonth(){
+    for(i = 0; i < statementsByYear.length; i++){
+      if(statementsByYear[i][0] == currentTickYear){
+        let year = statementsByYear[i][1]
+        for(j = 0; j < year.length; j++){
+          if(year[j].month == currentTickMonth){
+            if(year[j - 1] != undefined){
+              currentTickMonth = year[j - 1].month
+              tick.value = {
+                month: convertMonth(currentTickMonth),
+                year: currentTickYear
+              }
+            }
+            break;
+          }
+        }
+      }
+    }
+  }
+
+  function deleteAMonth(){
+    
   }
 $("#addDataBtn").addEventListener("click", sortDatesAndPushToChart)
 $("#RightYearButton").addEventListener("click", traverseForwardAYear)
 $("#leftYearButton").addEventListener("click", traverseBackAYear)
 $("#RightMonthButton").addEventListener("click", traverseForwardAMonth)
 $("#leftMonthButton").addEventListener("click", traverseBackAMonth)
-$("#tickUp").addEventListener("click", tickUpAYear)
-
+$("#tickUpAYear").addEventListener("click", tickUpAYear)
+$("#tickDownAYear").addEventListener("click", tickDownAYear)
+$("#tickUpAMonth").addEventListener("click", tickUpAMonth)
+$("#tickDownAMonth").addEventListener("click", tickDownAMonth)

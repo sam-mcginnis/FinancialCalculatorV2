@@ -1,26 +1,45 @@
-.tick-flip {
-  margin-left: .0625em;
-  margin-right: .0625em;
-}
+.flipHeader {
+  height: 115px;
+  text-align: center;
 
-/* border radius of the flipper */
-.tick-flip {
-  border-radius: .125em;
 }
-
-/* color of the flipper */
-.tick-flip-panel {
-  color: #eee;
-  background-color: #333;
+.tickUpBtn {
+  position: relative;
+  outline: none;
+  height: 30px;
+  width: 80%;
+  margin: auto;
+  border: solid 1px #4db6ac;
+  color: #4db6ac;
+  background: transparent;
+  border-radius: 4px;
+  font-family: Roboto;
 }
-
-/* shadow behind the flipper */
-.tick-flip-shadow {
-  box-shadow: 0 0 1em #000;
+.tickUpBtn:hover{
+  outline: none;
+  background: #4db6ac;
+  color: #fff;
 }
-
-/* padding in the flipper (both values should be the same) */
-.tick-flip {
-  letter-spacing: .25em;
-  text-indent: .25em;
+.tickUpBtn:focus{
+  outline: none;
+}
+.faUp{
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  top: 1px;
+  font-size: 30px;
+}
+.faDown{
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  bottom: 1px;
+  font-size: 30px;
 }

@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="./css/calendar.css">
     <link rel="stylesheet" href="./css/fileUpload.css">
     <link rel="stylesheet" href="./css/toggle.css">
+    <link rel="stylesheet" href="./css/flipCounter.css">
+
 
 
     <link rel="shortcut icon" href="./images/favi.png" type="image/x-icon">
@@ -158,7 +160,7 @@
       </p>
       </header>
       <div class="body" id="drop">
-      <i class="fa fa-file-text-o pointer-none" aria-hidden="true"></i>
+      <i class="fa fa-file-text-o pointer-none paper" aria-hidden="true"></i>
       <p class="pointer-none"><b>Drag and drop</b> files here <br /> or <a href="" id="triggerFile">browse</a> to begin the upload</p>
           <input type="file" multiple="multiple" />
       </div>
@@ -175,26 +177,47 @@
     </div>
     </div>
   </div>
-  <div class="col-lg-6 col-md-6 col-sm-12 my-auto">
-    <button type="button" id="tickUp">^</button>
-
-    <div class="tick" id="tick1">
-
-    <div data-layout="horizontal fit">
-        
-      <span data-key="month">
-        <span data-view="flip"></span>
-    </span>
-    <span class="tick-text-inline">-</span>
-        <span data-key="year">
-            <span data-view="flip"></span>
-        </span>
-        
-    </div>
-
-</div>
-
-    <button type="button" id="tickDown">v</button>
+  <div class="col-lg-6 col-md-6 col-sm-12">
+    <div class="upload">
+      <div class="upload-files">
+        <header class="flipHeader">
+          <p class="mr-3">
+            <i class="fa fa-trash" aria-hidden="true"></i>
+            <span class="up">delete</span>
+            <span class="load">data</span>
+          </p>
+          <p>
+            By Month
+        </p>
+          </header>
+        <div class="body" id="drop">
+          <div class="tick" id="tick1">
+            <div data-layout="horizontal fit">
+      
+            <div data-layout="vertical">
+              <button type="button" id="tickDownAMonth" class="tickUpBtn"><i class="fa fa-angle-up faUp" aria-hidden="true"></i></button>
+              
+              <span data-key="month">
+                  <span data-view="flip"></span>
+              </span>
+              <button type="button" id="tickUpAMonth" class="tickUpBtn"><i class="fa fa-angle-down faDown" aria-hidden="true"></i></button>
+            </div>
+            <div data-layout="vertical">
+              <button type="button" id="tickUpAYear" class="tickUpBtn"><i class="fa fa-angle-up faUp" aria-hidden="true"></i></button>
+              <span data-key="year">
+                  <span data-view="flip"></span>
+              </span>     
+              <button type="button" id="tickDownAYear" class="tickUpBtn"><i class="fa fa-angle-down faDown" aria-hidden="true"></i></button>
+            </div>
+            </div>
+          </div>
+        </div>
+        <footer>
+          <button id="deleteDataBtn" class="importas ml-4 active">DELETE DATA</button>
+        </footer>
+      </div>
+      </div>
+    
   </div>
 </div>
 <div class="row mt-5">

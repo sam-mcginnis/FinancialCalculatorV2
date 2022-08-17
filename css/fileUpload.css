@@ -25,7 +25,7 @@
 }
 .upload .upload-files header p:nth-of-type(2) {
   color: #fff;
-  font-size: 30px;
+  font-size: 20px;
   text-align: center;
   font-weight: 100;
 
@@ -65,7 +65,7 @@
 .upload .upload-files .body input {
   visibility: hidden;
 }
-.upload .upload-files .body i {
+.upload .upload-files .body .paper {
   font-size: 65px;
   color: lightgray;
 }
