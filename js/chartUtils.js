@@ -226,8 +226,8 @@ var creditCardAccFile =[]
       }
     }
     //update flip deleter
-    currentTickMonth = chartData[0].month
-    currentTickYear =  chartData[0].year
+    currentTickMonth = chartObject.month
+    currentTickYear =  chartObject.year
     tick.value = {
       month: convertMonth(currentTickMonth),
       year: currentTickYear 
@@ -273,6 +273,7 @@ var creditCardAccFile =[]
       chartCCAmounts.push(element.graph.CC_Spent)
       chartDCAmounts.push(element.graph.DC_Spent)       
     })
+
     pushDoughnutDataToCharts(chartData[0])
 
     data.labels = chartLabels
@@ -419,8 +420,75 @@ var creditCardAccFile =[]
   }
 
   function deleteAMonth(){
-    
+    for(i = 0; i < statementsByYear.length; i++){
+      if(statementsByYear[i][0] == currentTickYear){
+        let year = statementsByYear[i][1]
+        console.log(year)
+        for(j = 0; j < year.length; j++){
+          if(year[j].month == currentTickMonth){
+            if(year[j - 1] != undefined){
+             tickDownAMonth()
+             console.log(year)
+             console.log(currentMonth) 
+             console.log(currentTickMonth) 
+            }
+            else if(year[j + 1] != undefined){
+              tickUpAMonth()
+              console.log(year)
+             console.log(currentMonth) 
+             console.log(currentTickMonth)
+            }
+            year.splice(j, 1)
+
+            if(!year.length == 0){
+              pushDataToCharts(year)    
+              console.log("*******************")
+              console.log(year)
+             console.log(currentMonth) 
+             console.log(currentTickMonth)
+            }
+            else{
+              if(statementsByYear[i - 1] != undefined){
+                tickDownAYear()
+                traverseBackAYear()
+                console.log(year)
+             console.log(currentyYear) 
+             console.log(currentTickYear)
+              }
+              else if(statementsByYear[i + 1] != undefined){
+                tickUpAYear()
+                traverseForwardAYear()
+                console.log(year)
+             console.log(currentyYear) 
+             console.log(currentTickYear)
+              }
+              statementsByYear.splice(i, 1)
+              if(statementsByYear.length == 0){
+                tick.value = {
+                  month: "Month",
+                  year: "2000"
+              }
+              document.querySelectorAll('.yearHeader').forEach(element => element.innerHTML = "Year")
+              document.getElementById("monthHeader").innerHTML = "Month"
+              removeData(myBarChart)
+              removeData(myLineChart)
+              removeData(myDoughnutChart)
+              }
+            }            
+            break;
+          }
+        }
+      }
+    }
   }
+
+  function removeData(chart) {
+    chart.data.labels.pop();
+    chart.data.datasets.forEach((dataset) => {
+        dataset.data.pop();
+    });
+    chart.update();
+}
 $("#addDataBtn").addEventListener("click", sortDatesAndPushToChart)
 $("#RightYearButton").addEventListener("click", traverseForwardAYear)
 $("#leftYearButton").addEventListener("click", traverseBackAYear)
@@ -430,3 +498,4 @@ $("#tickUpAYear").addEventListener("click", tickUpAYear)
 $("#tickDownAYear").addEventListener("click", tickDownAYear)
 $("#tickUpAMonth").addEventListener("click", tickUpAMonth)
 $("#tickDownAMonth").addEventListener("click", tickDownAMonth)
+$("#deleteDataBtn").addEventListener("click", deleteAMonth)
