@@ -288,14 +288,14 @@ var creditCardAccFile =[]
     //update year in header
     currentyYear = chartData[0].year
     document.querySelectorAll('.yearHeader').forEach(element => element.innerHTML = chartData[0].year)
-
+   
     myBarChart.update()
     myLineChart.update()
   }
 
   //traverse a stmt year func
   function traverseForwardAYear(){
-    for(i = 0; i < statementsByYear.length; i++){
+    for(let i = 0; i < statementsByYear.length; i++){
       if(statementsByYear[i][0] == currentyYear){
         if(statementsByYear[i + 1] != undefined){
           pushDataToCharts(statementsByYear[i + 1][1])
@@ -305,7 +305,7 @@ var creditCardAccFile =[]
     }
     }
   function traverseBackAYear(){
-    for(i = 0; i < statementsByYear.length; i++){
+    for(let i = 0; i < statementsByYear.length; i++){
       if(statementsByYear[i][0] == currentyYear){
         if(statementsByYear[i - 1] != undefined){
           pushDataToCharts(statementsByYear[i - 1][1])
@@ -316,10 +316,10 @@ var creditCardAccFile =[]
   }
 
   function traverseForwardAMonth(){
-    for(i = 0; i < statementsByYear.length; i++){
+    for(let i = 0; i < statementsByYear.length; i++){
       if(statementsByYear[i][0] == currentyYear){
         let year = statementsByYear[i][1]
-        for(j = 0; j < year.length; j++){
+        for(let j = 0; j < year.length; j++){
           if(year[j].month == currentMonth){
             if(year[j + 1] != undefined){
               pushDoughnutDataToCharts(year[j + 1])
@@ -332,10 +332,10 @@ var creditCardAccFile =[]
   }
 
   function traverseBackAMonth(){
-    for(i = 0; i < statementsByYear.length; i++){
+    for(let i = 0; i < statementsByYear.length; i++){
       if(statementsByYear[i][0] == currentyYear){
         let year = statementsByYear[i][1]
-        for(j = 0; j < year.length; j++){
+        for(let j = 0; j < year.length; j++){
           if(year[j].month == currentMonth){
             if(year[j - 1] != undefined){
               pushDoughnutDataToCharts(year[j - 1])
@@ -348,7 +348,7 @@ var creditCardAccFile =[]
   }
 
   function tickUpAYear(){
-    for(i = 0; i < statementsByYear.length; i++){
+    for(let i = 0; i < statementsByYear.length; i++){
       if(statementsByYear[i][0] == currentTickYear){
         if(statementsByYear[i + 1] != undefined){
           currentTickYear = statementsByYear[i + 1][0]
@@ -364,7 +364,7 @@ var creditCardAccFile =[]
   }
  
   function tickDownAYear(){
-    for(i = 0; i < statementsByYear.length; i++){
+    for(let i = 0; i < statementsByYear.length; i++){
       if(statementsByYear[i][0] == currentTickYear){
         if(statementsByYear[i - 1] != undefined){
           currentTickYear = statementsByYear[i - 1][0]
@@ -380,10 +380,10 @@ var creditCardAccFile =[]
   }
 
   function tickUpAMonth(){
-    for(i = 0; i < statementsByYear.length; i++){
+    for(let i = 0; i < statementsByYear.length; i++){
       if(statementsByYear[i][0] == currentTickYear){
         let year = statementsByYear[i][1]
-        for(j = 0; j < year.length; j++){
+        for(let j = 0; j < year.length; j++){
           if(year[j].month == currentTickMonth){
             if(year[j + 1] != undefined){
               currentTickMonth = year[j + 1].month
@@ -400,10 +400,10 @@ var creditCardAccFile =[]
   }
 
   function tickDownAMonth(){
-    for(i = 0; i < statementsByYear.length; i++){
+    for(let i = 0; i < statementsByYear.length; i++){
       if(statementsByYear[i][0] == currentTickYear){
         let year = statementsByYear[i][1]
-        for(j = 0; j < year.length; j++){
+        for(let j = 0; j < year.length; j++){
           if(year[j].month == currentTickMonth){
             if(year[j - 1] != undefined){
               currentTickMonth = year[j - 1].month
@@ -419,55 +419,48 @@ var creditCardAccFile =[]
     }
   }
 
+  function findCurrentTickYearIndex(){
+    for(let i = 0; i < statementsByYear.length; i++){
+      if(statementsByYear[i][0] == currentTickYear){
+        console.log(i + " " + statementsByYear[i][0])
+        return i
+      }
+    }
+  }
+
   function deleteAMonth(){
-    for(i = 0; i < statementsByYear.length; i++){
+    for(let i = 0; i < statementsByYear.length; i++){
       if(statementsByYear[i][0] == currentTickYear){
         let year = statementsByYear[i][1]
         console.log(year)
-        for(j = 0; j < year.length; j++){
+        for(let j = 0; j < year.length; j++){
           if(year[j].month == currentTickMonth){
             if(year[j - 1] != undefined){
              tickDownAMonth()
-             console.log(year)
-             console.log(currentMonth) 
-             console.log(currentTickMonth) 
             }
             else if(year[j + 1] != undefined){
               tickUpAMonth()
-              console.log(year)
-             console.log(currentMonth) 
-             console.log(currentTickMonth)
             }
             year.splice(j, 1)
 
             if(!year.length == 0){
               pushDataToCharts(year)    
-              console.log("*******************")
-              console.log(year)
-             console.log(currentMonth) 
-             console.log(currentTickMonth)
             }
             else{
               if(statementsByYear[i - 1] != undefined){
                 tickDownAYear()
-                traverseBackAYear()
-                console.log(year)
-             console.log(currentyYear) 
-             console.log(currentTickYear)
+                pushDataToCharts(statementsByYear[findCurrentTickYearIndex()][1])
               }
               else if(statementsByYear[i + 1] != undefined){
                 tickUpAYear()
-                traverseForwardAYear()
-                console.log(year)
-             console.log(currentyYear) 
-             console.log(currentTickYear)
+                pushDataToCharts(statementsByYear[findCurrentTickYearIndex()][1])
               }
               statementsByYear.splice(i, 1)
               if(statementsByYear.length == 0){
                 tick.value = {
                   month: "Month",
                   year: "2000"
-              }
+                }
               document.querySelectorAll('.yearHeader').forEach(element => element.innerHTML = "Year")
               document.getElementById("monthHeader").innerHTML = "Month"
               removeData(myBarChart)
@@ -483,9 +476,9 @@ var creditCardAccFile =[]
   }
 
   function removeData(chart) {
-    chart.data.labels.pop();
+    chart.data.labels.length = 0;
     chart.data.datasets.forEach((dataset) => {
-        dataset.data.pop();
+      dataset.data.length = 0
     });
     chart.update();
 }

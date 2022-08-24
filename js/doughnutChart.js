@@ -2,14 +2,9 @@ const doughnutData = {
     labels: [],
     datasets: [
     {
-      label: "Credit Card",
+      label: "Categories",
       data: [],
       backgroundColor: [],
-    },
-    {
-      label: "Debit Card",
-      data: [],
-      backgroundColor: "",
     }
   ]
   };
