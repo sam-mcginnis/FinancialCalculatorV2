@@ -47,5 +47,6 @@ jQuery(".headerMonth").fitText(.5, { minFontSize: '20px', maxFontSize: '40px' })
 jQuery(".headerDate").fitText(1, { minFontSize: '20px', maxFontSize: '40px' });
 jQuery(".headerYear").fitText(1, { minFontSize: '8px', maxFontSize: '15px' });
 jQuery("#solu_title").fitText(2, { minFontSize: '15px', maxFontSize: '30px' });
-jQuery("#solu_description").fitText(1, { minFontSize: '10px', maxFontSize: '15x' });
+jQuery("#solu_description").fitText(1, { minFontSize: '10px', maxFontSize: '15px' });
+
 

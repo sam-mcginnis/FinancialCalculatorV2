@@ -6,7 +6,7 @@ var spendingCategories = []
 
 //Statements by year
 var statementsByYear = []
-var currentyYear = 0
+var currentYear = 0
 var currentMonth = 0
 var currentTickYear = 0
 var currentTickMonth = 0
@@ -67,18 +67,24 @@ var creditCardAccFile =[]
 
   function calculateDebitCategories(statement, categoriesObj){
     let arrayValues = checkOtherCatgory(statement[1])
-
+    
     if(arrayValues == null){
       if(categoriesObj.categoryTotals.length <= 0){
         let categoryTotal = []
-            categoryTotal.push("Other")
-            categoryTotal.push(Math.abs(statement[2]))
-            categoriesObj.categoryTotals.push(categoryTotal)
+        categoryTotal.push("Other")
+        categoryTotal.push(Math.abs(statement[2]))
+
+        let categoryList = []
+        categoryList.push(statement[0] + " - " + statement[1] + ": " + statement[2])
+        categoryTotal.push(categoryList)
+
+        categoriesObj.categoryTotals.push(categoryTotal)
       }
       else{
         for(let j = 0; j < categoriesObj.categoryTotals.length; j++){
           if(categoriesObj.categoryTotals[j][0] == "Other"){
             categoriesObj.categoryTotals[j][1] += Math.abs(statement[2])
+            categoriesObj.categoryTotals[j][2].push(statement[0] + " - " + statement[1] + ": " + statement[2])
             break
           }
         }
@@ -89,6 +95,7 @@ var creditCardAccFile =[]
         for(let l = 0; l < categoriesObj.categoryTotals.length; l++){
           if(categoriesObj.categoryTotals[l][0] == arrayValues[0]){
             categoriesObj.categoryTotals[l][1] += Math.abs(statement[2])
+            categoriesObj.categoryTotals[l][2].push(statement[0] + " - " + statement[1] + ": " + statement[2])
             break
           }
         }              
@@ -97,6 +104,11 @@ var creditCardAccFile =[]
         let categoryTotal = []
         categoryTotal.push(arrayValues[0])
         categoryTotal.push(Math.abs(statement[2]))
+
+        let categoryList = []
+        categoryList.push(statement[0] + statement[1] + statement[2])
+        categoryTotal.push(categoryList)
+
         categoriesObj.categoryTotals.push(categoryTotal)
       }
     }
@@ -110,12 +122,18 @@ var creditCardAccFile =[]
         let categoryTotal = []
             categoryTotal.push("Other")
             categoryTotal.push(Math.abs(statement[4]))
+
+            let categoryList = []
+            categoryList.push(statement[0] + " - " + statement[2] + ": " + statement[4])
+            categoryTotal.push(categoryList)
+            
             categoriesObj.categoryTotals.push(categoryTotal)
       }
       else{
         for(let j = 0; j < categoriesObj.categoryTotals.length; j++){
           if(categoriesObj.categoryTotals[j][0] == "Other"){
             categoriesObj.categoryTotals[j][1] += Math.abs(statement[4])
+            categoriesObj.categoryTotals[j][2].push(statement[0] + " - " + statement[2] + ": " + statement[4])
             break
           }
         }
@@ -126,6 +144,7 @@ var creditCardAccFile =[]
         for(let l = 0; l < categoriesObj.categoryTotals.length; l++){
           if(categoriesObj.categoryTotals[l][0] == arrayValues[0]){
             categoriesObj.categoryTotals[l][1] += Math.abs(statement[4])
+            categoriesObj.categoryTotals[l][2].push(statement[0] + " - " + statement[2] + ": " + statement[4])
             break
           }
         }              
@@ -134,6 +153,11 @@ var creditCardAccFile =[]
         let categoryTotal = []
         categoryTotal.push(arrayValues[0])
         categoryTotal.push(Math.abs(statement[4]))
+
+        let categoryList = []
+        categoryList.push(statement[0] + statement[2] + statement[4])
+        categoryTotal.push(categoryList)
+
         categoriesObj.categoryTotals.push(categoryTotal)
       }
     }
@@ -224,15 +248,7 @@ var creditCardAccFile =[]
         chartData = statementsByYear[i][1]
         break;
       }
-    }
-    //update flip deleter
-    currentTickMonth = chartObject.month
-    currentTickYear =  chartObject.year
-    tick.value = {
-      month: convertMonth(currentTickMonth),
-      year: currentTickYear 
-    } 
-    
+    }    
     pushDataToCharts(chartData)
   }
 
@@ -240,6 +256,7 @@ var creditCardAccFile =[]
     let doughnutChartLabels = []
     let doughnutTotal = []
     let doughnutColor = []
+
 
     data.pie.categories.forEach(category => {
       doughnutChartLabels.push(category[0])
@@ -275,7 +292,6 @@ var creditCardAccFile =[]
     })
 
     pushDoughnutDataToCharts(chartData[0])
-
     data.labels = chartLabels
     data.datasets[0].data = chartIncomes
     data.datasets[1].data = chartTotalSpent
@@ -284,9 +300,17 @@ var creditCardAccFile =[]
     lineData.labels = chartLabels
     lineData.datasets[0].data = chartCCAmounts
     lineData.datasets[1].data = chartDCAmounts
-
+    
+    // update flip deleter
+    currentTickMonth = chartData[0].month
+    currentTickYear = chartData[0].year
+    tick.value = {
+      month: convertMonth(currentTickMonth),
+      year: currentTickYear 
+    } 
+    
     //update year in header
-    currentyYear = chartData[0].year
+    currentYear = chartData[0].year
     document.querySelectorAll('.yearHeader').forEach(element => element.innerHTML = chartData[0].year)
    
     myBarChart.update()
@@ -296,7 +320,7 @@ var creditCardAccFile =[]
   //traverse a stmt year func
   function traverseForwardAYear(){
     for(let i = 0; i < statementsByYear.length; i++){
-      if(statementsByYear[i][0] == currentyYear){
+      if(statementsByYear[i][0] == currentYear){
         if(statementsByYear[i + 1] != undefined){
           pushDataToCharts(statementsByYear[i + 1][1])
         }
@@ -306,7 +330,7 @@ var creditCardAccFile =[]
     }
   function traverseBackAYear(){
     for(let i = 0; i < statementsByYear.length; i++){
-      if(statementsByYear[i][0] == currentyYear){
+      if(statementsByYear[i][0] == currentYear){
         if(statementsByYear[i - 1] != undefined){
           pushDataToCharts(statementsByYear[i - 1][1])
         }
@@ -317,7 +341,7 @@ var creditCardAccFile =[]
 
   function traverseForwardAMonth(){
     for(let i = 0; i < statementsByYear.length; i++){
-      if(statementsByYear[i][0] == currentyYear){
+      if(statementsByYear[i][0] == currentYear){
         let year = statementsByYear[i][1]
         for(let j = 0; j < year.length; j++){
           if(year[j].month == currentMonth){
@@ -333,7 +357,7 @@ var creditCardAccFile =[]
 
   function traverseBackAMonth(){
     for(let i = 0; i < statementsByYear.length; i++){
-      if(statementsByYear[i][0] == currentyYear){
+      if(statementsByYear[i][0] == currentYear){
         let year = statementsByYear[i][1]
         for(let j = 0; j < year.length; j++){
           if(year[j].month == currentMonth){
@@ -422,7 +446,14 @@ var creditCardAccFile =[]
   function findCurrentTickYearIndex(){
     for(let i = 0; i < statementsByYear.length; i++){
       if(statementsByYear[i][0] == currentTickYear){
-        console.log(i + " " + statementsByYear[i][0])
+        return i
+      }
+    }
+  }
+
+  function findCurrentYearIndex(){
+    for(let i = 0; i < statementsByYear.length; i++){
+      if(statementsByYear[i][0] == currentYear){
         return i
       }
     }
@@ -432,7 +463,6 @@ var creditCardAccFile =[]
     for(let i = 0; i < statementsByYear.length; i++){
       if(statementsByYear[i][0] == currentTickYear){
         let year = statementsByYear[i][1]
-        console.log(year)
         for(let j = 0; j < year.length; j++){
           if(year[j].month == currentTickMonth){
             if(year[j - 1] != undefined){
@@ -469,6 +499,24 @@ var creditCardAccFile =[]
               }
             }            
             break;
+          }
+        }
+      }
+    }
+  }
+
+  function getCategoryList(label){
+    for(let i = 0; i < statementsByYear.length; i++){
+      if(statementsByYear[i][0] == currentYear){
+        let year = statementsByYear[i][1]
+        for(let j = 0; j < year.length; j++){
+          if(year[j].month == currentMonth){
+            let categoryList = year[j].pie.categories
+            for(let k = 0; k < categoryList.length; k++){
+              if(categoryList[k][0] == label){
+                return categoryList[k][2]
+              }
+            }
           }
         }
       }

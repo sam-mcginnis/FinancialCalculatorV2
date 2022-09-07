@@ -88,12 +88,7 @@
 .specialBtn {
  border: 0;
     border-radius: 10px;
-    background: linear-gradient(
-      140deg,
-      #32eb8e 0%,
-      #41ffa0 50%,
-      #56eba0 75%
-    ) !important;
+    background: #52de97;
     color: #fff;
     font-weight: 500;
     font-size: 1rem;

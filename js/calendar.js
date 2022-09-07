@@ -1,3 +1,8 @@
+// Given data for events in JSON format
+var event_data = {
+    "events": []
+};
+
 (function($) {
 
 	"use strict";
@@ -11,6 +16,8 @@ $(document).ready(function(){
     $(".left-button").click({date: date}, prev_year);
     $(".month").click({date: date}, month_click);
     $("#add-button").click({date: date}, new_event);
+    $("#clear-button").click({date: date}, remove_events);
+
     // Set current month as active
     $(".months-row").children().eq(date.getMonth()).addClass("active-month");
     init_calendar(date);
@@ -141,18 +148,14 @@ function new_event(event) {
     $("#ok-button").unbind().click({date: event.data.date}, function() {
         var date = event.data.date;
         var name = $("#name").val().trim();
-        var count = parseInt($("#count").val().trim());
+        var count = $("#count").val().trim();
         var day = parseInt($(".active-date").html());
         // Basic form validation
         if(name.length === 0) {
             $("#name").addClass("error-input");
         }
-        else if(isNaN(count)) {
-            $("#count").addClass("error-input");
-        }
         else {
             $("#dialog").hide(250);
-            console.log("new event");
             new_event_json(name, count, date, day);
             date.setDate(day);
             init_calendar(date);
@@ -177,7 +180,6 @@ function show_events(events, month, day) {
     // Clear the dates container
     $(".events-container").empty();
     $(".events-container").show(250);
-    console.log(event_data["events"]);
     // If there are no events for this date, notify the user
     if(events.length===0) {
         var event_card = $("<div class='event-card'></div>");
@@ -191,7 +193,7 @@ function show_events(events, month, day) {
         for(var i=0; i<events.length; i++) {
             var event_card = $("<div class='event-card'></div>");
             var event_name = $("<div class='event-name'>"+events[i]["occasion"]+":</div>");
-            var event_count = $("<div class='event-count'>"+events[i]["invited_count"]+" Invited</div>");
+            var event_count = $("<div class='event-count'>"+events[i]["invited_count"]+"</div>");
             if(events[i]["cancelled"]===true) {
                 $(event_card).css({
                     "border-left": "10px solid #FF1744"
@@ -218,94 +220,22 @@ function check_events(day, month, year) {
     return events;
 }
 
-// Given data for events in JSON format
-var event_data = {
-    "events": [
-    {
-        "occasion": " Repeated Test Event ",
-        "invited_count": 120,
-        "year": 2020,
-        "month": 5,
-        "day": 10,
-        "cancelled": true
-    },
-    {
-        "occasion": " Repeated Test Event ",
-        "invited_count": 120,
-        "year": 2020,
-        "month": 5,
-        "day": 10,
-        "cancelled": true
-    },
-        {
-        "occasion": " Repeated Test Event ",
-        "invited_count": 120,
-        "year": 2020,
-        "month": 5,
-        "day": 10,
-        "cancelled": true
-    },
-    {
-        "occasion": " Repeated Test Event ",
-        "invited_count": 120,
-        "year": 2020,
-        "month": 5,
-        "day": 10
-    },
-        {
-        "occasion": " Repeated Test Event ",
-        "invited_count": 120,
-        "year": 2020,
-        "month": 5,
-        "day": 10,
-        "cancelled": true
-    },
-    {
-        "occasion": " Repeated Test Event ",
-        "invited_count": 120,
-        "year": 2020,
-        "month": 5,
-        "day": 10
-    },
-        {
-        "occasion": " Repeated Test Event ",
-        "invited_count": 120,
-        "year": 2020,
-        "month": 5,
-        "day": 10,
-        "cancelled": true
-    },
-    {
-        "occasion": " Repeated Test Event ",
-        "invited_count": 120,
-        "year": 2020,
-        "month": 5,
-        "day": 10
-    },
-        {
-        "occasion": " Repeated Test Event ",
-        "invited_count": 120,
-        "year": 2020,
-        "month": 5,
-        "day": 10,
-        "cancelled": true
-    },
-    {
-        "occasion": " Repeated Test Event ",
-        "invited_count": 120,
-        "year": 2020,
-        "month": 5,
-        "day": 10
-    },
-    {
-        "occasion": " Test Event",
-        "invited_count": 120,
-        "year": 2020,
-        "month": 5,
-        "day": 11
+function remove_events(event) {
+    var date = event.data.date;
+    var year = date.getFullYear()
+    var month = date.getMonth()+1
+    var day = parseInt($(".active-date").html());
+    for(var i=0; i<event_data["events"].length; i++) {
+        var event = event_data["events"][i];
+        if(event["day"]===day &&
+            event["month"]===month &&
+            event["year"]===year) {
+                event_data["events"].splice(i, 1)
+            }
     }
-    ]
-};
+    date.setDate(day);
+    init_calendar(date);
+}
 
 const months = [ 
     "January", 
