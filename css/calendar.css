@@ -199,12 +199,12 @@
 }
 #cancel-button {
   background: red; }
-#add-button:hover, #ok-button:hover, #cancel-button:hover {
+#add-button:hover, #ok-button:hover, #cancel-button:hover, #clear-button:hover {
   -webkit-transform: scale(1.03);
   -ms-transform: scale(1.03);
   transform: scale(1.03); }
 
-#add-button:active, #ok-button:active, #cancel-button:active {
+#add-button:active, #ok-button:active, #cancel-button:active, #clear-button:active {
   -webkit-transform: translateY(3px) scale(0.97);
   -ms-transform: translateY(3px) scale(0.97);
   transform: translateY(3px) scale(0.97); }
