@@ -249,6 +249,10 @@ var creditCardAccFile =[]
         break;
       }
     }    
+    // set flip deleter
+    currentTickMonth = chartObject.month
+    currentTickYear = chartObject.year
+
     pushDataToCharts(chartData)
   }
 
@@ -302,8 +306,6 @@ var creditCardAccFile =[]
     lineData.datasets[1].data = chartDCAmounts
     
     // update flip deleter
-    currentTickMonth = chartData[0].month
-    currentTickYear = chartData[0].year
     tick.value = {
       month: convertMonth(currentTickMonth),
       year: currentTickYear 
@@ -319,6 +321,7 @@ var creditCardAccFile =[]
 
   //traverse a stmt year func
   function traverseForwardAYear(){
+    jQuery("#rightYearButton").trigger("blur");
     for(let i = 0; i < statementsByYear.length; i++){
       if(statementsByYear[i][0] == currentYear){
         if(statementsByYear[i + 1] != undefined){
@@ -329,6 +332,7 @@ var creditCardAccFile =[]
     }
     }
   function traverseBackAYear(){
+    jQuery("#leftYearButton").trigger("blur");
     for(let i = 0; i < statementsByYear.length; i++){
       if(statementsByYear[i][0] == currentYear){
         if(statementsByYear[i - 1] != undefined){
@@ -340,6 +344,7 @@ var creditCardAccFile =[]
   }
 
   function traverseForwardAMonth(){
+    jQuery("#rightMonthButton").trigger("blur");
     for(let i = 0; i < statementsByYear.length; i++){
       if(statementsByYear[i][0] == currentYear){
         let year = statementsByYear[i][1]
@@ -356,6 +361,7 @@ var creditCardAccFile =[]
   }
 
   function traverseBackAMonth(){
+    jQuery("#leftMonthButton").trigger("blur");
     for(let i = 0; i < statementsByYear.length; i++){
       if(statementsByYear[i][0] == currentYear){
         let year = statementsByYear[i][1]
@@ -531,9 +537,9 @@ var creditCardAccFile =[]
     chart.update();
 }
 $("#addDataBtn").addEventListener("click", sortDatesAndPushToChart)
-$("#RightYearButton").addEventListener("click", traverseForwardAYear)
+$("#rightYearButton").addEventListener("click", traverseForwardAYear)
 $("#leftYearButton").addEventListener("click", traverseBackAYear)
-$("#RightMonthButton").addEventListener("click", traverseForwardAMonth)
+$("#rightMonthButton").addEventListener("click", traverseForwardAMonth)
 $("#leftMonthButton").addEventListener("click", traverseBackAMonth)
 $("#tickUpAYear").addEventListener("click", tickUpAYear)
 $("#tickDownAYear").addEventListener("click", tickDownAYear)

@@ -8,6 +8,7 @@ App.init = function () {
   function handleFileSelect(evt) {
     const files = evt.target.files; // FileList object
     let orderedFiles = []
+    let toggle = $("#toggleTitleCheckbox")
 
     //files template
     let template = `${Object.keys(files).
@@ -24,10 +25,13 @@ App.init = function () {
     </div>`).
     join("")}`;
 
+
     $("#drop").classList.add("hidden");
     $("footer").classList.add("hasFiles");
     $(".importar").classList.add("active");
-    $(".importas").classList.add("active");
+    if(!toggle.checked){
+      $(".importas").classList.add("active");
+    }
 
     setTimeout(() => {
       $(".list-files").innerHTML = template;
@@ -91,6 +95,9 @@ App.init = function () {
 function processData(files){
   let toggle = $("#toggleTitleCheckbox")
 
+  if(toggle.checked){
+    spendingCategories.length = 0
+  }
   //parses debit and credit card statments
   //and converts to an array
   for(let i in files){
@@ -125,10 +132,10 @@ function isToggleChecked(){
   let toggle = $("#toggleTitleCheckbox")
   let toggleTitle = $("#uploadToggleTitle")
   if(toggle.checked){
-    toggleTitle.innerHTML = "Categories"
+    toggleTitle.innerHTML = "Upload Categories"
   }
   else{
-    toggleTitle.innerHTML = "Statments"
+    toggleTitle.innerHTML = "Upload Statments"
   }
 }
 

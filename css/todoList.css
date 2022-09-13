@@ -80,10 +80,13 @@
     background-clip: padding-box;
     border: 1px solid #ced4da;
     border-radius: 2px;
+    
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out
 }
 
-
+.form-control:focus {
+    box-shadow: 0px 0px 5px var(--light-blue-bg-color);
+ }
 
 .specialBtn {
  border: 0;
@@ -211,7 +214,6 @@
     text-overflow: ellipsis;
     overflow: hidden;
     max-width: 100%;
-    white-space: nowrap
 }
 
 .form-check {
@@ -219,7 +221,7 @@
     display: block;
     margin-top: 10px;
     margin-bottom: 10px;
-    padding-left: 0
+    padding-left: 0;
 }
 
 .list-wrapper ul li .form-check,
@@ -232,7 +234,6 @@
     text-overflow: ellipsis;
     overflow: hidden;
     max-width: 100%;
-    white-space: nowrap
 }
 
 .form-check .form-check-label {
@@ -240,7 +241,8 @@
     display: block;
     margin-left: 1.75rem;
     font-size: 0.875rem;
-    line-height: 1.5
+    line-height: 1.5;
+    word-wrap: inherit;
 }
 
 .form-check-label {
@@ -279,7 +281,6 @@ input[type="checkbox"] {
     text-overflow: ellipsis;
     overflow: hidden;
     max-width: 100%;
-    white-space: nowrap
 }
 
 .form-check .form-check-label input[type="checkbox"]+.input-helper:before {
