@@ -306,6 +306,11 @@ var creditCardAccFile =[]
     lineData.datasets[1].data = chartDCAmounts
     
     // update flip deleter
+    if(currentTickMonth === 0 || currentTickYear === 0){
+      currentTickMonth = chartData[0].month
+      currentTickYear = chartData[0].year
+    }
+    
     tick.value = {
       month: convertMonth(currentTickMonth),
       year: currentTickYear 
