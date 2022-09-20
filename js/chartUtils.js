@@ -106,7 +106,7 @@ var creditCardAccFile =[]
         categoryTotal.push(Math.abs(statement[2]))
 
         let categoryList = []
-        categoryList.push(statement[0] + statement[1] + statement[2])
+        categoryList.push(statement[0] + " - " + statement[1] + ": " + statement[2])
         categoryTotal.push(categoryList)
 
         categoriesObj.categoryTotals.push(categoryTotal)
@@ -155,7 +155,7 @@ var creditCardAccFile =[]
         categoryTotal.push(Math.abs(statement[4]))
 
         let categoryList = []
-        categoryList.push(statement[0] + statement[2] + statement[4])
+        categoryList.push(statement[0] + " - " + statement[2] + ": " + statement[4])
         categoryTotal.push(categoryList)
 
         categoriesObj.categoryTotals.push(categoryTotal)
@@ -199,12 +199,19 @@ var creditCardAccFile =[]
   }
 
   function sortDatesAndPushToChart(){
+     //get date from statement
+     let date = debitCardAccFile[7][0].split("/")
+
+     if(isDuplicateMonth(date) === true){
+      alert(convertMonth(Number(date[0])) + " already exists for the year " + date[2])
+      return
+     }
+
     let categoriesObj = {categoryTotals: []}
     let earned = getTotalIncome(debitCardAccFile)
     let DC_Spent = getTotalDebits(debitCardAccFile, categoriesObj)
     let CC_Spent =  getTotalCredits(creditCardAccFile, categoriesObj)
-    //get date from statement
-    let date = debitCardAccFile[7][0].split("/")
+   
     //make chart object with year month and chart values
     let chartObject = {
       month: Number(date[0]),
@@ -540,7 +547,24 @@ var creditCardAccFile =[]
       dataset.data.length = 0
     });
     chart.update();
-}
+  }
+
+  //error handling
+  function isDuplicateMonth(date){
+    let month = Number(date[0])
+    let year = Number(date[2])
+    for(let i = 0; i < statementsByYear.length; i++){
+      if(statementsByYear[i][0] == year){
+        let months = statementsByYear[i][1]
+        for(let j = 0; j < months.length; j++){
+          if(months[j].month == month){
+            return true
+          }
+        }       
+      }
+    }
+    return false
+  }
 $("#addDataBtn").addEventListener("click", sortDatesAndPushToChart)
 $("#rightYearButton").addEventListener("click", traverseForwardAYear)
 $("#leftYearButton").addEventListener("click", traverseBackAYear)

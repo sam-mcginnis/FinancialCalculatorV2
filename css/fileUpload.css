@@ -37,6 +37,18 @@
   -webkit-animation: fadeup 0.5s 1s ease both;
           animation: fadeup 0.5s 1s ease both;
 }
+.uploadToggleTitle{
+  transform: translateY(20px);
+  opacity: 0;
+  -webkit-animation: faderight 0.5s 1.5s ease both;
+          animation: faderight 0.5s 1.5s ease both;
+}
+.uploadToggleTitleAfterLoad{
+  transform: translateY(20px);
+  opacity: 0;
+  -webkit-animation: faderight 0.25s 0.25s ease both;
+          animation: faderight 0.25s 0.25s ease both;
+}
 .upload .upload-files header p .up {
   font-weight: bold;
   transform: translateX(-20px);

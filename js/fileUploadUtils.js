@@ -10,6 +10,16 @@ App.init = function () {
     let orderedFiles = []
     let toggle = $("#toggleTitleCheckbox")
 
+    if(toggle.checked && files.length != 0 && isStmtInCategoryUpload(files)){
+      alert("Cannot put a statment file in category uploads")
+      return
+    }
+
+    if(!toggle.checked && files.length > 2){
+      alert("You cannot upload more than two files in statment uploads\n" + "1. One must be a stmt.cvs (debit statements)\n" + "2. One must be the credit.cvs (can not contain the phrase stmt.cvs)")
+      return
+    }
+
     //files template
     let template = `${Object.keys(files).
     map(file => `<div class="file file--${file}">
@@ -128,9 +138,24 @@ function processData(files){
 
 }
 
+function isStmtInCategoryUpload(files){
+  for(let i = 0; i < files.length; i++){
+    if(files[i].name.includes("stmt")){
+      return true
+    }
+  }
+  return false
+}
+
 function isToggleChecked(){
   let toggle = $("#toggleTitleCheckbox")
   let toggleTitle = $("#uploadToggleTitle")
+  //animation for text
+  toggleTitle.classList.remove("uploadToggleTitleAfterLoad");
+  toggleTitle.classList.remove("uploadToggleTitle");
+  void toggleTitle.offsetWidth;
+  toggleTitle.classList.add("uploadToggleTitleAfterLoad");
+
   if(toggle.checked){
     toggleTitle.innerHTML = "Upload Categories"
   }
@@ -138,5 +163,7 @@ function isToggleChecked(){
     toggleTitle.innerHTML = "Upload Statments"
   }
 }
+
+
 
 $("#toggleTitleCheckbox").addEventListener("click", isToggleChecked)

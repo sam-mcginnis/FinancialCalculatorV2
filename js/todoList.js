@@ -62,12 +62,28 @@ var todoList = [];
   })(jQuery);
 
   function printListOnLoad(){
-    for(let i = 0; i < todoList.length; i++){
-      if(todoList[i][1] == "check"){
-        jQuery('.todo-list').append("<li class='completed'><div class='form-check'><label class='form-check-label'><input class='checkbox' type='checkbox' checked='checked' />" + todoList[i][0] + "<i class='input-helper'></i></label></div><i class='remove fa fa-trash-o'></i></li>");
-      }
-      else{
+    //logic to wipe checked boxes
+    //at the start of the month
+    let currentDate = new Date();
+    let currentDay = currentDate.getDate()
+    console.log(currentDate)
+    console.log(currentDay)
+
+    if(currentDay == 1){
+      for(let i = 0; i < todoList.length; i++){
+        todoList[i].length = 1
         jQuery('.todo-list').append("<li><div class='form-check'><label class='form-check-label'><input class='checkbox' type='checkbox'/>" + todoList[i][0] + "<i class='input-helper'></i></label></div><i class='remove fa fa-trash-o'></i></li>");
       }
     }
+    else{
+      for(let i = 0; i < todoList.length; i++){
+        if(todoList[i][1] == "check"){
+          jQuery('.todo-list').append("<li class='completed'><div class='form-check'><label class='form-check-label'><input class='checkbox' type='checkbox' checked='checked' />" + todoList[i][0] + "<i class='input-helper'></i></label></div><i class='remove fa fa-trash-o'></i></li>");
+        }
+        else{
+          jQuery('.todo-list').append("<li><div class='form-check'><label class='form-check-label'><input class='checkbox' type='checkbox'/>" + todoList[i][0] + "<i class='input-helper'></i></label></div><i class='remove fa fa-trash-o'></i></li>");
+        }
+      }
+    }
+    console.log(todoList)
   }

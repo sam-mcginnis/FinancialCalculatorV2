@@ -43,7 +43,7 @@
 })( jQuery );
 
 jQuery(".headerDay").fitText(1, { minFontSize: '8px', maxFontSize: '15px' });
-jQuery(".headerMonth").fitText(.5, { minFontSize: '20px', maxFontSize: '40px' });
+jQuery(".headerMonth").fitText(.5, { minFontSize: '12px', maxFontSize: '40px' });
 jQuery(".headerDate").fitText(1, { minFontSize: '20px', maxFontSize: '40px' });
 jQuery(".headerYear").fitText(1, { minFontSize: '8px', maxFontSize: '15px' });
 jQuery("#solu_title").fitText(2, { minFontSize: '15px', maxFontSize: '30px' });
