@@ -68,7 +68,7 @@ function DateTime() {
             dd: (this.date.getDate() < 10) ? "0" + this.date.getDate() : this.date.getDate(),
             ddd: this.weekdays[this.date.getDay()].substring(0, 3),
             dddd: this.weekdays[this.date.getDay()],
-            ddddd: ((this.date.getDate() < 10) ? "0" + this.date.getDate() : this.date.getDate()) + getDaySuffix(this.date.getDate()),
+            ddddd: ((this.date.getDate() < 10) ? this.date.getDate() : this.date.getDate()) + getDaySuffix(this.date.getDate()),
             m: this.date.getMonth() + 1,
             mm: (this.date.getMonth() + 1) < 10 ? "0" + (this.date.getMonth() + 1) : this.date.getMonth() + 1,
             mmm: this.months[this.date.getMonth()].substring(0, 3),
