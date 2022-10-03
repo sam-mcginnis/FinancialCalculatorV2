@@ -1,4 +1,5 @@
 var todoList = [];
+var currentMonthTodoList = 0;
 
 (function($) {
     'use strict';
@@ -65,15 +66,14 @@ var todoList = [];
     //logic to wipe checked boxes
     //at the start of the month
     let currentDate = new Date();
-    let currentDay = currentDate.getDate()
-    console.log(currentDate)
-    console.log(currentDay)
+    let currentMonth = currentDate.getMonth()
 
-    if(currentDay == 1){
+    if(currentMonth != currentMonthTodoList){
       for(let i = 0; i < todoList.length; i++){
         todoList[i].length = 1
         jQuery('.todo-list').append("<li><div class='form-check'><label class='form-check-label'><input class='checkbox' type='checkbox'/>" + todoList[i][0] + "<i class='input-helper'></i></label></div><i class='remove fa fa-trash-o'></i></li>");
       }
+      currentMonthTodoList = currentMonth
     }
     else{
       for(let i = 0; i < todoList.length; i++){
@@ -85,5 +85,4 @@ var todoList = [];
         }
       }
     }
-    console.log(todoList)
   }

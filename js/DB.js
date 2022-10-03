@@ -5,6 +5,7 @@ function storeData() {
     localStorage.setItem("spendingCategories", JSON.stringify(spendingCategories))
     localStorage.setItem("event_data", JSON.stringify(event_data))
     localStorage.setItem("todoList", JSON.stringify(todoList))
+    localStorage.setItem("currentMonthTodoList", JSON.stringify(currentMonthTodoList))
 }
 
 function loadData(){
@@ -13,6 +14,7 @@ function loadData(){
     let setSpendingCategories = JSON.parse(localStorage.getItem("spendingCategories"))
     let setEvent_data = JSON.parse(localStorage.getItem("event_data"))
     let setTodoList = JSON.parse(localStorage.getItem("todoList"))
+    let setcurrentMonthTodoList = JSON.parse(localStorage.getItem("currentMonthTodoList"))
 
     if(setRejectedDescriptionsFile != null){
         rejectedDescriptionsFile = setRejectedDescriptionsFile
@@ -26,8 +28,11 @@ function loadData(){
     if(setEvent_data != null){
         event_data = setEvent_data
     }
-    if(setTodoList != null){
-        todoList = setTodoList
+    if(setEvent_data != null){
+        event_data = setEvent_data
+    }
+    if(setcurrentMonthTodoList != null){
+        currentMonthTodoList = setcurrentMonthTodoList
         printListOnLoad()
     }
     if(statementsByYear.length != 0){
