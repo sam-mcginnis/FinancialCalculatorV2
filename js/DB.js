@@ -28,11 +28,11 @@ function loadData(){
     if(setEvent_data != null){
         event_data = setEvent_data
     }
-    if(setEvent_data != null){
-        event_data = setEvent_data
-    }
     if(setcurrentMonthTodoList != null){
         currentMonthTodoList = setcurrentMonthTodoList
+    }
+    if(setTodoList != null){
+        todoList = setTodoList
         printListOnLoad()
     }
     if(statementsByYear.length != 0){
