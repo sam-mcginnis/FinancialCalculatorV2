@@ -193,8 +193,6 @@ var creditCardAccFile =[]
   function sortDatesAndPushToChart(){
      //get date from statement
      let date = debitCardAccFile[7][0].split("/")
-    console.log(debitCardAccFile)
-    console.log(creditCardAccFile)
 
      if(isDuplicateMonth(date) === true){
       alert(convertMonth(Number(date[0])) + " already exists for the year " + date[2])
