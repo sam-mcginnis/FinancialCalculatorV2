@@ -26,11 +26,13 @@ var creditCardAccFile =[]
   function getTotalDebits(debitCardAccFile, categoriesObj){
     let totalDebit= 0
 
-    for(let i = 8; i < debitCardAccFile.length; i++){
-      if(debitCardAccFile[i][2] < 0){
+    for(let i = 8; i < debitCardAccFile.length; i++){  
+      let stripped = (debitCardAccFile[i][2] != undefined) ?  parseFloat(debitCardAccFile[i][2].replace(/,/g, "")) : 1
+
+      if(stripped < 0){
           if(!rejectedDescriptionsFile.some(file => file.includes(debitCardAccFile[i][1]))){
             calculateDebitCategories(debitCardAccFile[i], categoriesObj)
-            totalDebit += Number(debitCardAccFile[i][2])
+            totalDebit +=  parseFloat(debitCardAccFile[i][2].replace(/,/g, ""))
           }
         }
       }
@@ -42,10 +44,11 @@ var creditCardAccFile =[]
     let totalCredit = 0
   
     for(let i = 1; i < creditCardAccFile.length; i++){
-      if(creditCardAccFile[i][4] < 0){
+      let stripped = (creditCardAccFile[i][4] != undefined) ? parseFloat(creditCardAccFile[i][4].replace(/,/g, "")) : 1
+      if(stripped < 0){
         if(!rejectedDescriptionsFile.includes(creditCardAccFile[i][2])){
           calculateCreditCategories(creditCardAccFile[i], categoriesObj)
-          totalCredit += Number(creditCardAccFile[i][4])
+          totalCredit += parseFloat(creditCardAccFile[i][4].replace(/,/g, ""))
         }     
       }
     }
@@ -67,50 +70,44 @@ var creditCardAccFile =[]
 
   function calculateDebitCategories(statement, categoriesObj){
     let arrayValues = checkOtherCatgory(statement[1])
-    
+      
     if(arrayValues == null){
-      if(categoriesObj.categoryTotals.length <= 0){
+      for(let j = 0; j < categoriesObj.categoryTotals.length; j++){
+        if(categoriesObj.categoryTotals[j][0] == "Other"){
+          categoriesObj.categoryTotals[j][1] += Math.abs(statement[2].replace(/,/g, ""))
+          categoriesObj.categoryTotals[j][2].push(statement[0] + " - " + statement[1] + ": " + statement[2])
+          return
+        }
+      }
         let categoryTotal = []
         categoryTotal.push("Other")
-        categoryTotal.push(Math.abs(statement[2]))
+        categoryTotal.push(Math.abs(statement[2].replace(/,/g, "")))
 
         let categoryList = []
         categoryList.push(statement[0] + " - " + statement[1] + ": " + statement[2])
         categoryTotal.push(categoryList)
 
         categoriesObj.categoryTotals.push(categoryTotal)
-      }
-      else{
-        for(let j = 0; j < categoriesObj.categoryTotals.length; j++){
-          if(categoriesObj.categoryTotals[j][0] == "Other"){
-            categoriesObj.categoryTotals[j][1] += Math.abs(statement[2])
-            categoriesObj.categoryTotals[j][2].push(statement[0] + " - " + statement[1] + ": " + statement[2])
-            break
-          }
-        }
-      }
     }
     else{
       if(categoriesObj.categoryTotals.some(file => file.includes(arrayValues[0]))){
         for(let l = 0; l < categoriesObj.categoryTotals.length; l++){
           if(categoriesObj.categoryTotals[l][0] == arrayValues[0]){
-            categoriesObj.categoryTotals[l][1] += Math.abs(statement[2])
+            categoriesObj.categoryTotals[l][1] += Math.abs(statement[2].replace(/,/g, ""))
             categoriesObj.categoryTotals[l][2].push(statement[0] + " - " + statement[1] + ": " + statement[2])
-            break
+            return
           }
         }              
       }
-      else{
-        let categoryTotal = []
-        categoryTotal.push(arrayValues[0])
-        categoryTotal.push(Math.abs(statement[2]))
+      let categoryTotal = []
+      categoryTotal.push(arrayValues[0])
+      categoryTotal.push(Math.abs(statement[2].replace(/,/g, "")))
 
-        let categoryList = []
-        categoryList.push(statement[0] + " - " + statement[1] + ": " + statement[2])
-        categoryTotal.push(categoryList)
+      let categoryList = []
+      categoryList.push(statement[0] + " - " + statement[1] + ": " + statement[2])
+      categoryTotal.push(categoryList)
 
-        categoriesObj.categoryTotals.push(categoryTotal)
-      }
+      categoriesObj.categoryTotals.push(categoryTotal)
     }
   }
 
@@ -118,48 +115,43 @@ var creditCardAccFile =[]
     let arrayValues = checkOtherCatgory(statement[2])
 
     if(arrayValues == null){
-      if(categoriesObj.categoryTotals.length <= 0){
-        let categoryTotal = []
-            categoryTotal.push("Other")
-            categoryTotal.push(Math.abs(statement[4]))
-
-            let categoryList = []
-            categoryList.push(statement[0] + " - " + statement[2] + ": " + statement[4])
-            categoryTotal.push(categoryList)
-            
-            categoriesObj.categoryTotals.push(categoryTotal)
-      }
-      else{
-        for(let j = 0; j < categoriesObj.categoryTotals.length; j++){
-          if(categoriesObj.categoryTotals[j][0] == "Other"){
-            categoriesObj.categoryTotals[j][1] += Math.abs(statement[4])
-            categoriesObj.categoryTotals[j][2].push(statement[0] + " - " + statement[2] + ": " + statement[4])
-            break
-          }
+      for(let j = 0; j < categoriesObj.categoryTotals.length; j++){
+        if(categoriesObj.categoryTotals[j][0] == "Other"){
+          categoriesObj.categoryTotals[j][1] += Math.abs(statement[4].replace(/,/g, ""))
+          categoriesObj.categoryTotals[j][2].push(statement[0] + " - " + statement[2] + ": " + statement[4])
+          return
         }
       }
+
+    let categoryTotal = []
+        categoryTotal.push("Other")
+        categoryTotal.push(Math.abs(statement[4].replace(/,/g, "")))
+
+        let categoryList = []
+        categoryList.push(statement[0] + " - " + statement[2] + ": " + statement[4])
+        categoryTotal.push(categoryList)            
+        categoriesObj.categoryTotals.push(categoryTotal)
     }
     else{
       if(categoriesObj.categoryTotals.some(file => file.includes(arrayValues[0]))){
         for(let l = 0; l < categoriesObj.categoryTotals.length; l++){
           if(categoriesObj.categoryTotals[l][0] == arrayValues[0]){
-            categoriesObj.categoryTotals[l][1] += Math.abs(statement[4])
+            categoriesObj.categoryTotals[l][1] += Math.abs(statement[4].replace(/,/g, ""))
             categoriesObj.categoryTotals[l][2].push(statement[0] + " - " + statement[2] + ": " + statement[4])
-            break
+            return
           }
         }              
       }
-      else{
-        let categoryTotal = []
-        categoryTotal.push(arrayValues[0])
-        categoryTotal.push(Math.abs(statement[4]))
 
-        let categoryList = []
-        categoryList.push(statement[0] + " - " + statement[2] + ": " + statement[4])
-        categoryTotal.push(categoryList)
+      let categoryTotal = []
+      categoryTotal.push(arrayValues[0])
+      categoryTotal.push(Math.abs(statement[4].replace(/,/g, "")))
 
-        categoriesObj.categoryTotals.push(categoryTotal)
-      }
+      let categoryList = []
+      categoryList.push(statement[0] + " - " + statement[2] + ": " + statement[4])
+      categoryTotal.push(categoryList)
+
+      categoriesObj.categoryTotals.push(categoryTotal)
     }
   }
 
@@ -201,6 +193,8 @@ var creditCardAccFile =[]
   function sortDatesAndPushToChart(){
      //get date from statement
      let date = debitCardAccFile[7][0].split("/")
+    console.log(debitCardAccFile)
+    console.log(creditCardAccFile)
 
      if(isDuplicateMonth(date) === true){
       alert(convertMonth(Number(date[0])) + " already exists for the year " + date[2])
