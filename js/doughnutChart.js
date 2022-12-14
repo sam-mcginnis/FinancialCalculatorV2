@@ -25,7 +25,7 @@ const doughnutData = {
           callbacks: {
             label: function(context) {
               values = statementsByYear[findCurrentYearIndex()][1]
-              percentage = Math.round((context.parsed / (values[0].graph.DC_Spent + values[0].graph.CC_Spent)) * 100);
+              percentage = Math.round((context.parsed / (values[findCurrentMonthIndex()].graph.DC_Spent + values[findCurrentMonthIndex()].graph.CC_Spent)) * 100);
               return context.label + ': $' + context.formattedValue + ' (' + percentage + '%)';
           }
           }

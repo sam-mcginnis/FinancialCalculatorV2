@@ -468,6 +468,18 @@ var creditCardAccFile =[]
       }
     }
   }
+  function findCurrentMonthIndex(){
+    for(let i = 0; i < statementsByYear.length; i++){
+      if(statementsByYear[i][0] == currentYear){
+        let year = statementsByYear[i][1]
+        for(let j = 0; j < year.length; j++){
+          if(year[j].month == currentMonth){
+            return j
+          }
+        }
+      }
+    }
+  }
 
   function deleteAMonth(){
     for(let i = 0; i < statementsByYear.length; i++){
