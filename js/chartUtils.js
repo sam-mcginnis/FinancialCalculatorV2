@@ -30,7 +30,7 @@ var creditCardAccFile =[]
       let stripped = (debitCardAccFile[i][2] != undefined) ?  parseFloat(debitCardAccFile[i][2].replace(/,/g, "")) : 1
 
       if(stripped < 0){
-          if(!rejectedDescriptionsFile.some(file => file.includes(debitCardAccFile[i][1].toLowerCase()))){
+          if(!checkIfRejected(debitCardAccFile[i][1].toLowerCase(), rejectedDescriptionsFile[0])){
             calculateDebitCategories(debitCardAccFile[i], categoriesObj)
             totalDebit +=  parseFloat(debitCardAccFile[i][2].replace(/,/g, ""))
           }
@@ -46,7 +46,7 @@ var creditCardAccFile =[]
     for(let i = 1; i < creditCardAccFile.length; i++){
       let stripped = (creditCardAccFile[i][4] != undefined) ? parseFloat(creditCardAccFile[i][4].replace(/,/g, "")) : 1
       if(stripped < 0){
-        if(!rejectedDescriptionsFile.includes(creditCardAccFile[i][2].toLowerCase())){
+        if(!checkIfRejected(creditCardAccFile[i][2].toLowerCase(), rejectedDescriptionsFile[0])){
           calculateCreditCategories(creditCardAccFile[i], categoriesObj)
           totalCredit += parseFloat(creditCardAccFile[i][4].replace(/,/g, ""))
         }     
@@ -66,6 +66,23 @@ var creditCardAccFile =[]
       }
     }
     return null
+  }
+
+  function checkIfRejected(statement, listOfDesc){
+    console.log(statement)
+    console.log(listOfDesc)
+    for(let rejectedDescription in listOfDesc){
+      console.log(listOfDesc[rejectedDescription])
+
+      if (statement.includes(listOfDesc[rejectedDescription])){
+        console.log(true)
+
+        return true
+      }
+    }
+    console.log(false)
+
+    return false
   }
 
   function calculateDebitCategories(statement, categoriesObj){
