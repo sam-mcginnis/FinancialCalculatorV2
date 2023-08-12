@@ -17,23 +17,50 @@ const lineData = {
     }
   ]
   };
-  const lineConfig = {
-    type: 'line',
-    data: lineData,
-    options: {
-      responsive: true,
-      plugins: {
-        legend: {
-          position: 'top',
-        },
-        title: {
-          display: true,
-          text: 'Card Expenditures'
-        }
+const lineConfig = {
+  type: 'line',
+  data: lineData,
+  options: {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Card Expenditures Trend'
       }
-    },
-  };
-    const myLineChart = new Chart(
-      document.getElementById('myLineChart'),
-      lineConfig
-    );
+    }
+  },
+};
+const myLineChart = new Chart(
+  document.getElementById('myLineChart'),
+  lineConfig
+);
+
+// Line chart to show categories trend in spending
+
+const catergoryLineData = {
+  labels: [],
+  datasets: []
+};
+const categoryLineConfig = {
+  type: 'line',
+  data: catergoryLineData,
+  options: {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Category Expenditure Trend'
+      }
+    }
+  },
+};
+  const categoryMyLineChart = new Chart(
+    document.getElementById('categoryMyLineChart'),
+    categoryLineConfig
+  );

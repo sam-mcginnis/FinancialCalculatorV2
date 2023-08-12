@@ -69,19 +69,11 @@ var creditCardAccFile =[]
   }
 
   function checkIfRejected(statement, listOfDesc){
-    console.log(statement)
-    console.log(listOfDesc)
     for(let rejectedDescription in listOfDesc){
-      console.log(listOfDesc[rejectedDescription])
-
       if (statement.includes(listOfDesc[rejectedDescription])){
-        console.log(true)
-
         return true
       }
     }
-    console.log(false)
-
     return false
   }
 
@@ -294,7 +286,53 @@ var creditCardAccFile =[]
 
   }
 
-  function pushDataToCharts(chartData){
+  function buildCategoryLineChatObj(chartData){
+    let map = new Map()
+    let datasets= []
+    let count = 0
+    chartData.forEach(element => {
+      element.pie.categories.forEach(category => {
+        if(map.has(category[0])){
+          if(count == map.get(category[0]).length){
+            map.get(category[0]).push(category[1])
+          }
+          else{
+            while(count > map.get(category[0]).length){
+              map.get(category[0]).push(null)
+            }
+            map.get(category[0]).push(category[1])
+          }
+        }
+        else{
+          let key = []
+          for(let i = 0; i < count; i++){
+            key.push(null)
+          }
+          key.push(category[1])
+          map.set(category[0], key)
+        }
+      })
+      count++
+    })
+    map.forEach((k, v) => {
+      let color = getColor()
+      datasets.push(
+        {
+          label: v,
+          data: k,
+          backgroundColor: color,
+          borderColor: color,
+          borderWidth: 2
+        }
+      )
+    })
+    console.log(map)
+    console.log(chartData)
+    console.log(datasets)
+    return datasets
+  }
+
+  function  pushDataToCharts(chartData){
     let chartLabels= []
     let chartIncomes = []
     let chartTotalSpent = []
@@ -310,16 +348,23 @@ var creditCardAccFile =[]
       chartCCAmounts.push(element.graph.CC_Spent)
       chartDCAmounts.push(element.graph.DC_Spent)       
     })
-
+    
+    // Logic to handle categories line chart
+    let datasets = buildCategoryLineChatObj(chartData)
+    catergoryLineData.labels = chartLabels
+    catergoryLineData.datasets = datasets
+    
     pushDoughnutDataToCharts(chartData[0])
     data.labels = chartLabels
     data.datasets[0].data = chartIncomes
     data.datasets[1].data = chartTotalSpent
     data.datasets[2].data = chartNetAmounts
 
+
     lineData.labels = chartLabels
     lineData.datasets[0].data = chartCCAmounts
     lineData.datasets[1].data = chartDCAmounts
+    
     
     // update flip deleter
     if(currentTickMonth === 0 || currentTickYear === 0){
@@ -335,9 +380,10 @@ var creditCardAccFile =[]
     //update year in header
     currentYear = chartData[0].year
     document.querySelectorAll('.yearHeader').forEach(element => element.innerHTML = chartData[0].year)
-   
+    
     myBarChart.update()
     myLineChart.update()
+    categoryMyLineChart.update()
   }
 
   //traverse a stmt year func
@@ -528,7 +574,7 @@ var creditCardAccFile =[]
               if(statementsByYear.length == 0){
                 tick.value = {
                   month: "Month",
-                  year: "2000"
+                  year: "Year"
                 }
               document.querySelectorAll('.yearHeader').forEach(element => element.innerHTML = "Year")
               document.getElementById("monthHeader").innerHTML = "Month"
@@ -586,6 +632,24 @@ var creditCardAccFile =[]
     }
     return false
   }
+
+  function scrollChartIntoView(){
+    $("#chartView").scrollIntoView({behavior:"smooth"});
+
+  }
+  const sleepNow = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
+
+  jQuery(document).ready(async function(){
+    let tabArray= ['home','menu1', 'menu2', 'menu3','home']
+    for(let tab of tabArray){
+      await sleepNow(10)
+      activaTab(tab);
+    }
+  });
+  
+  function activaTab(tab){
+    jQuery('.nav-tabs a[href="#' + tab + '"]').tab('show');
+  };
 $("#addDataBtn").addEventListener("click", sortDatesAndPushToChart)
 $("#rightYearButton").addEventListener("click", traverseForwardAYear)
 $("#leftYearButton").addEventListener("click", traverseBackAYear)
@@ -596,3 +660,4 @@ $("#tickDownAYear").addEventListener("click", tickDownAYear)
 $("#tickUpAMonth").addEventListener("click", tickUpAMonth)
 $("#tickDownAMonth").addEventListener("click", tickDownAMonth)
 $("#deleteDataBtn").addEventListener("click", deleteAMonth)
+$(".nav-tabs").addEventListener("click", scrollChartIntoView)

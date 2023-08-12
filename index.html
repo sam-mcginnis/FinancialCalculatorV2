@@ -243,54 +243,99 @@
     
   </div>
 </div>
-<div class="row mt-5">
-  <div class="col-lg-10 col-md-11 col-sm-12 mx-auto mt-5">
-    <div class="card">
-      <div class="card-header">
-        <div class="text-right">
-          <button id="leftYearButton" class="btn btn-primary"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i></button>
-          &nbsp;<span><strong class="yearHeader">Year</strong></span>&nbsp;
-          <button id="rightYearButton" class="btn btn-primary"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></button>
+<div class="row mt-5" id="chartView">
+  <div class="col-lg-8 col-md-11 col-sm-12 mx-auto mt-5">
+    <!-- Nav tabs -->
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" href="#home">Overview</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#menu1">Cards</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#menu2">Categories By Year</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#menu3">Categories By Month</a>
+    </li>
+    <div class="ml-auto">
+      <button id="leftYearButton" class="btn btn-primary"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i></button>
+      &nbsp;<span><strong class="yearHeader">Year</strong></span>&nbsp;
+      <button id="rightYearButton" class="btn btn-primary"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></button>
+    </div>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div class="tab-pane active container" id="home">
+      <div class="card mt-4">
+        <div class="card-header">
+          <div class="text-right">
+            <span><strong class="yearHeader">Year</strong></span>
+          </div>
+        </div>
+        <div class="card-body">
+          <canvas id="myChart"></canvas>
         </div>
       </div>
-      <div class="card-body">
-        <canvas id="myChart"></canvas>
+    </div>
+    <div class="tab-pane container" id="menu1">
+      <div class="card mt-4">
+        <div class="card-header">
+          <div class="text-right">
+            <span><strong class="yearHeader">Year</strong></span>
+          </div>
+        </div>
+        <div class="card-body">
+          <canvas id="myLineChart"></canvas>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane container" id="menu2">
+      <div class="card mt-4">
+        <div class="card-header">
+          <div class="text-right">
+            <span><strong class="yearHeader">Year</strong></span>
+          </div>
+        </div>
+        <div class="card-body">
+          <canvas id="categoryMyLineChart"></canvas>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane container col-6" id="menu3">
+      <div class="card mt-4">
+        <div class="card-header">
+          <div class="float-right">
+            <button id="leftMonthButton" class="btn btn-primary"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i></button>
+            &nbsp;<span><strong id="monthHeader">Month</strong></span>&nbsp;
+            <button id="rightMonthButton" class="btn btn-primary"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></button>
+          </div>
+          <div class="float-left">
+            <span><strong class="yearHeader">Year</strong></span>
+          </div>
+        </div>
+        <div class="card-body">
+          <canvas id="mydoughnutChart"></canvas>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<div class="row mt-5">
-  <div class="col-lg-5 col-md-10 col-sm-12 mx-auto mt-5">
-    <div class="card">
-      <div class="card-header">
-        <div class="text-right">
-          <span><strong class="yearHeader">Year</strong></span>
-        </div>
-      </div>
-      <div class="card-body">
-        <canvas id="myLineChart"></canvas>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-5 col-md-10 col-sm-12 mx-auto mt-5">
-    <div class="card">
-      <div class="card-header">
-        <div class="float-right">
-          <button id="leftMonthButton" class="btn btn-primary"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i></button>
-          &nbsp;<span><strong id="monthHeader">Month</strong></span>&nbsp;
-          <button id="rightMonthButton" class="btn btn-primary"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></button>
-        </div>
-        <div class="float-left">
-          <span><strong class="yearHeader">Year</strong></span>
-        </div>
-      </div>
-      <div class="card-body">
-        <canvas id="mydoughnutChart"></canvas>
-      </div>
-    </div>
   </div>
 </div>
 <br>
+<br>
+<br>
+<br>
+<br>
+<footer class="text-center text-lg-start">
+  <!-- Copyright -->
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+    <p>© Forever Copyright: McGinnis Products</p>
+  </div>
+  <!-- Copyright -->
+</footer>
 </body>
 
 <script src="./js/chart.js"></script>
