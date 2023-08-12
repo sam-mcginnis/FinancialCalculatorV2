@@ -380,7 +380,7 @@ var creditCardAccFile =[]
     //update year in header
     currentYear = chartData[0].year
     document.querySelectorAll('.yearHeader').forEach(element => element.innerHTML = chartData[0].year)
-   
+    
     myBarChart.update()
     myLineChart.update()
     categoryMyLineChart.update()
@@ -632,6 +632,24 @@ var creditCardAccFile =[]
     }
     return false
   }
+
+  function scrollChartIntoView(){
+    $("#chartView").scrollIntoView({behavior:"smooth"});
+
+  }
+  const sleepNow = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
+
+  jQuery(document).ready(async function(){
+    let tabArray= ['home','menu1', 'menu2', 'menu3','home']
+    for(let tab of tabArray){
+      await sleepNow(10)
+      activaTab(tab);
+    }
+  });
+  
+  function activaTab(tab){
+    jQuery('.nav-tabs a[href="#' + tab + '"]').tab('show');
+  };
 $("#addDataBtn").addEventListener("click", sortDatesAndPushToChart)
 $("#rightYearButton").addEventListener("click", traverseForwardAYear)
 $("#leftYearButton").addEventListener("click", traverseBackAYear)
@@ -642,3 +660,4 @@ $("#tickDownAYear").addEventListener("click", tickDownAYear)
 $("#tickUpAMonth").addEventListener("click", tickUpAMonth)
 $("#tickDownAMonth").addEventListener("click", tickDownAMonth)
 $("#deleteDataBtn").addEventListener("click", deleteAMonth)
+$(".nav-tabs").addEventListener("click", scrollChartIntoView)

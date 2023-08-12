@@ -1,6 +1,9 @@
   body{
     overflow-x: hidden;
   }
+  footer{
+    background-color: #71ffb8;
+  }
   .our_solution_category {
   
     flex-direction: row;
