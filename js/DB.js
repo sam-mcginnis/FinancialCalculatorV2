@@ -36,7 +36,7 @@ function loadData(){
         printListOnLoad()
     }
     if(statementsByYear.length != 0){
-        pushDataToCharts(statementsByYear[0][1])
+        pushDataToCharts(statementsByYear[statementsByYear.length - 1][1])
     }
 }
 

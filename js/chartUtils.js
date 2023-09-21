@@ -326,9 +326,6 @@ var creditCardAccFile =[]
         }
       )
     })
-    console.log(map)
-    console.log(chartData)
-    console.log(datasets)
     return datasets
   }
 
@@ -354,7 +351,10 @@ var creditCardAccFile =[]
     catergoryLineData.labels = chartLabels
     catergoryLineData.datasets = datasets
     
-    pushDoughnutDataToCharts(chartData[0])
+    console.log(chartData)
+    console.log(chartData[0])
+
+    pushDoughnutDataToCharts(chartData[chartData.length - 1])
     data.labels = chartLabels
     data.datasets[0].data = chartIncomes
     data.datasets[1].data = chartTotalSpent
