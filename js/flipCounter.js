@@ -5,6 +5,5 @@ var tick = Tick.DOM.create(element, {
         year: "Year"
     },
     didInit: function(tick) {
-        console.log('hello!');
     }
 });
