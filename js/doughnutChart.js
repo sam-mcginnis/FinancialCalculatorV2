@@ -31,20 +31,31 @@ const doughnutData = {
           }
       }
       },
+      //callback for modal on pieChart
       onClick: (e) => {
         let category = e.chart.tooltip.dataPoints[0].label
-        let list = document.getElementById('modalList')
+        let modal = document.getElementById('modalList')
+        let list = document.createElement('ul')
+        
+
         let categoryList = getCategoryList(category)
 
         jQuery('#modalList').empty()
 
+        list.style.listStyleType = 'decimal'
+
+        modal.appendChild(list)
+
+
         categoryList.forEach((item) => {
-          let li = document.createElement("li");
+          let li = document.createElement('li');
           li.innerText = item;
           list.appendChild(li);
       })
 
         document.getElementById('modalTitle').innerHTML = category
+
+        document.getElementById('modalFooter').innerHTML = "<button type=\"button\" class=\"btn btn-secondary btn-danger\" data-dismiss=\"modal\">Close</button>"
 
         jQuery('#myModal').modal()
       }

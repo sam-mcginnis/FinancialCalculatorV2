@@ -264,13 +264,13 @@ var creditCardAccFile =[]
     pushDataToCharts(chartData)
   }
 
-  function pushDoughnutDataToCharts(data){
+  function pushDoughnutDataToCharts(chartData){
     let doughnutChartLabels = []
     let doughnutTotal = []
     let doughnutColor = []
 
 
-    data.pie.categories.forEach(category => {
+    chartData.pie.categories.forEach(category => {
       doughnutChartLabels.push(category[0])
       doughnutTotal.push(parseFloat(category[1]).toFixed(2))
       doughnutColor.push(getColor())
@@ -279,14 +279,14 @@ var creditCardAccFile =[]
     doughnutData.datasets[0].data = doughnutTotal
     doughnutData.datasets[0].backgroundColor = doughnutColor
 
-    currentMonth = data.month
-    document.getElementById("monthHeader").innerHTML = convertMonth(data.month)
+    currentMonth = chartData.month
+    document.querySelectorAll('.monthHeader').forEach(element => element.innerHTML = convertMonth(chartData.month))    
 
     myDoughnutChart.update()
 
   }
 
-  function buildCategoryLineChatObj(chartData){
+  function buildCategoryLineChartObj(chartData){
     let map = new Map()
     let datasets= []
     let count = 0
@@ -329,6 +329,28 @@ var creditCardAccFile =[]
     return datasets
   }
 
+  function buildCategoryBarChartObj(chartData){
+    let spentBar = []
+    let netAmountBar = []
+    let labels = []
+  
+    chartData.pie.categories.forEach(category => {
+      let spent = parseFloat(category[1]).toFixed(2)
+      
+      labels.push(category[0])
+      spentBar.push(spent)
+      netAmountBar.push(0 - spent)
+    })
+
+    categoryData.datasets[1].data = spentBar
+    categoryData.datasets[2].data = netAmountBar
+    categoryData.labels = labels
+    
+    currentMonth = chartData.month
+    document.querySelectorAll('.monthHeader').forEach(element => element.innerHTML = convertMonth(chartData.month))    
+    
+  }
+
   function  pushDataToCharts(chartData){
     let chartLabels= []
     let chartIncomes = []
@@ -347,19 +369,20 @@ var creditCardAccFile =[]
     })
     
     // Logic to handle categories line chart
-    let datasets = buildCategoryLineChatObj(chartData)
+    let datasets = buildCategoryLineChartObj(chartData)
     catergoryLineData.labels = chartLabels
     catergoryLineData.datasets = datasets
-    
-    console.log(chartData)
-    console.log(chartData[0])
 
+    // Logic to handle budget bar chart
+    buildCategoryBarChartObj(chartData[chartData.length - 1])
+  
+    //Logic to handle doughnut chart
     pushDoughnutDataToCharts(chartData[chartData.length - 1])
+
     data.labels = chartLabels
     data.datasets[0].data = chartIncomes
     data.datasets[1].data = chartTotalSpent
     data.datasets[2].data = chartNetAmounts
-
 
     lineData.labels = chartLabels
     lineData.datasets[0].data = chartCCAmounts
@@ -384,6 +407,7 @@ var creditCardAccFile =[]
     myBarChart.update()
     myLineChart.update()
     categoryMyLineChart.update()
+    categoryMyBarChart.update()
   }
 
   //traverse a stmt year func
@@ -419,6 +443,7 @@ var creditCardAccFile =[]
           if(year[j].month == currentMonth){
             if(year[j + 1] != undefined){
               pushDoughnutDataToCharts(year[j + 1])
+              
             }
             break;
           }
@@ -590,6 +615,7 @@ var creditCardAccFile =[]
     }
   }
 
+  //gets list of itemized expenditures for a specific category in a specific month
   function getCategoryList(label){
     for(let i = 0; i < statementsByYear.length; i++){
       if(statementsByYear[i][0] == currentYear){
@@ -602,6 +628,19 @@ var creditCardAccFile =[]
                 return categoryList[k][2]
               }
             }
+          }
+        }
+      }
+    }
+  }
+//get a list of categories for a specific month
+  function getCategories(){
+    for(let i = 0; i < statementsByYear.length; i++){
+      if(statementsByYear[i][0] == currentYear){
+        let year = statementsByYear[i][1]
+        for(let j = 0; j < year.length; j++){
+          if(year[j].month == currentMonth){
+            return (year[j].pie.categories)            
           }
         }
       }
@@ -633,6 +672,33 @@ var creditCardAccFile =[]
     return false
   }
 
+
+// add budget to popup modal on budget tab/chart
+  function addBudget(){
+    let modal = document.getElementById('modalList')
+    let list = document.createElement('ul')
+
+    jQuery('#modalList').empty()
+
+    list.style.listStyleType = 'none'
+    modal.appendChild(list)
+    
+    document.getElementById('modalTitle').innerHTML = "Add Budget"
+    let categories = getCategories()
+
+    categories.forEach((item) => {
+      let li = document.createElement("li");
+      li.innerHTML = item[0] + "<div class=\"input-group mb-3 col-6\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">$</span></div><input type=\"number\" class=\"form-control\" aria-label=\"Amount (to the nearest dollar)\" step=\".01\"></div>"
+      list.appendChild(li);
+  })
+
+  document.getElementById('modalFooter').innerHTML = "<button type=\"button\" class=\"btn btn-secondary btn-success\">Submit</button>"
+
+
+    jQuery('#myModal').modal()
+
+  }
+
   function scrollChartIntoView(){
     $("#chartView").scrollIntoView({behavior:"smooth"});
 
@@ -640,24 +706,26 @@ var creditCardAccFile =[]
   const sleepNow = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
 
   jQuery(document).ready(async function(){
-    let tabArray= ['home','menu1', 'menu2', 'menu3','home']
+    let tabArray= ['home','menu1', 'menu2', 'menu3', 'menu4','home']
     for(let tab of tabArray){
       await sleepNow(10)
-      activaTab(tab);
+      activateTab(tab);
     }
   });
   
-  function activaTab(tab){
+  function activateTab(tab){
     jQuery('.nav-tabs a[href="#' + tab + '"]').tab('show');
   };
 $("#addDataBtn").addEventListener("click", sortDatesAndPushToChart)
 $("#rightYearButton").addEventListener("click", traverseForwardAYear)
 $("#leftYearButton").addEventListener("click", traverseBackAYear)
-$("#rightMonthButton").addEventListener("click", traverseForwardAMonth)
-$("#leftMonthButton").addEventListener("click", traverseBackAMonth)
+$(".rightMonthButton").addEventListener("click", traverseForwardAMonth)
+$(".leftMonthButton").addEventListener("click", traverseBackAMonth)
 $("#tickUpAYear").addEventListener("click", tickUpAYear)
 $("#tickDownAYear").addEventListener("click", tickDownAYear)
 $("#tickUpAMonth").addEventListener("click", tickUpAMonth)
 $("#tickDownAMonth").addEventListener("click", tickDownAMonth)
 $("#deleteDataBtn").addEventListener("click", deleteAMonth)
 $(".nav-tabs").addEventListener("click", scrollChartIntoView)
+$("#editBudget").addEventListener("click", addBudget)
+
