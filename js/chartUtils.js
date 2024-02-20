@@ -330,18 +330,27 @@ var creditCardAccFile =[]
   }
 
   function buildCategoryBarChartObj(chartData){
+    let budgetBar = []
     let spentBar = []
     let netAmountBar = []
     let labels = []
-  
+    console.log(statementsByYear)
+    console.log(chartData)
+
     chartData.pie.categories.forEach(category => {
       let spent = parseFloat(category[1]).toFixed(2)
+      let budgetAmount = parseFloat(category[3]).toFixed(2)
       
+
+
       labels.push(category[0])
       spentBar.push(spent)
-      netAmountBar.push(0 - spent)
+      budgetBar.push((budgetAmount ? budgetAmount : 0))
+      netAmountBar.push((budgetAmount ? budgetAmount : 0) - spent)
     })
 
+
+    categoryData.datasets[0].data = budgetBar
     categoryData.datasets[1].data = spentBar
     categoryData.datasets[2].data = netAmountBar
     categoryData.labels = labels
@@ -349,6 +358,8 @@ var creditCardAccFile =[]
     currentMonth = chartData.month
     document.querySelectorAll('.monthHeader').forEach(element => element.innerHTML = convertMonth(chartData.month))    
     
+    categoryMyBarChart.update()
+
   }
 
   function  pushDataToCharts(chartData){
@@ -373,6 +384,7 @@ var creditCardAccFile =[]
     catergoryLineData.labels = chartLabels
     catergoryLineData.datasets = datasets
 
+    console.log(chartData)
     // Logic to handle budget bar chart
     buildCategoryBarChartObj(chartData[chartData.length - 1])
   
@@ -407,7 +419,6 @@ var creditCardAccFile =[]
     myBarChart.update()
     myLineChart.update()
     categoryMyLineChart.update()
-    categoryMyBarChart.update()
   }
 
   //traverse a stmt year func
@@ -688,14 +699,30 @@ var creditCardAccFile =[]
 
     categories.forEach((item) => {
       let li = document.createElement("li");
-      li.innerHTML = item[0] + "<div class=\"input-group mb-3 col-6\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">$</span></div><input type=\"number\" class=\"form-control\" aria-label=\"Amount (to the nearest dollar)\" step=\".01\"></div>"
+      li.innerHTML = item[0] + "<div class=\"input-group mb-3 col-6\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">$</span></div><input type=\"number\" min=\"0.00\" value=\"0.00\" class=\"form-control budgetAmount\" aria-label=\"Amount (to the nearest dollar)\" step=\".01\"></div>"
       list.appendChild(li);
   })
 
-  document.getElementById('modalFooter').innerHTML = "<button type=\"button\" class=\"btn btn-secondary btn-success\">Submit</button>"
-
+  document.getElementById('modalFooter').innerHTML = "<button id=\"collectBudget\" type=\"button\" class=\"btn btn-secondary btn-success\">Submit</button>"
 
     jQuery('#myModal').modal()
+
+    $("#collectBudget").addEventListener("click", collectBudget)
+
+
+  }
+
+  function collectBudget(){
+    let budgetAmounts = []
+    document.querySelectorAll('.budgetAmount').forEach(element => {
+      budgetAmounts.push(element.value)
+    })
+
+    getCategories().forEach(element=> element[3] = parseFloat(budgetAmounts.shift()).toFixed(2))
+    jQuery('#myModal').modal('toggle')
+
+    buildCategoryBarChartObj(statementsByYear[findCurrentYearIndex()][1][findCurrentMonthIndex()])
+
 
   }
 
@@ -728,4 +755,5 @@ $("#tickDownAMonth").addEventListener("click", tickDownAMonth)
 $("#deleteDataBtn").addEventListener("click", deleteAMonth)
 $(".nav-tabs").addEventListener("click", scrollChartIntoView)
 $("#editBudget").addEventListener("click", addBudget)
+
 
