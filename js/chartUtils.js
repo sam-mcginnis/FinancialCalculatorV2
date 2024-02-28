@@ -377,7 +377,6 @@ var creditCardAccFile =[]
       chartDCAmounts.push(element.graph.DC_Spent)       
     })
 
-    console.log(chartData)
     
     // Logic to handle categories line chart
     let datasets = buildCategoryLineChartObj(chartData)
