@@ -13,7 +13,7 @@ var currentTickMonth = 0
 
 //statement file upload
 //converts debit and credit files
-//into arrays
+//into arraysF
 var debitCardAccFile = []
 var creditCardAccFile =[]
 
@@ -335,16 +335,20 @@ var creditCardAccFile =[]
     let netAmountBar = []
     let labels = []
 
+
     chartData.pie.categories.forEach(category => {
+      let label = category[0]
       let spent = parseFloat(category[1]).toFixed(2)
       let budgetAmount = parseFloat(category[3]).toFixed(2)
+      let parsedBudgetAmount =(!isNaN(budgetAmount) ? budgetAmount : (categoryBudgetMap.get(label) ? categoryBudgetMap.get(label) : 0.00))
       
+      //set budget amount on chart obj
+      category[3] = parsedBudgetAmount
 
-
-      labels.push(category[0])
+      labels.push(label)
       spentBar.push(spent)
-      budgetBar.push((budgetAmount ? budgetAmount : 0))
-      netAmountBar.push((budgetAmount ? budgetAmount : 0) - spent)
+      budgetBar.push(parsedBudgetAmount)
+      netAmountBar.push(parsedBudgetAmount - spent)
     })
 
 
@@ -729,9 +733,14 @@ var creditCardAccFile =[]
     document.getElementById('modalTitle').innerHTML = "Add Budget"
     let categories = getCategories()
 
+    if(!categories){
+      window.alert("You need to add data for this feature.")
+      return
+    }
+
     categories.forEach((item) => {
       let li = document.createElement("li");
-      li.innerHTML = item[0] + "<div class=\"input-group mb-3 col-6\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">$</span></div><input type=\"number\" min=\"0.00\" value=\"0.00\" class=\"form-control budgetAmount\" aria-label=\"Amount (to the nearest dollar)\" step=\".01\"></div>"
+      li.innerHTML = item[0] + "<div class=\"input-group mb-3 col-6\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">$</span></div><input type=\"number\" min=\"0.00\" value=" + item[3] + " class=\"form-control budgetAmount\" aria-label=\"Amount (to the nearest dollar)\" step=\".01\"></div>"
       list.appendChild(li);
   })
 
@@ -746,12 +755,19 @@ var creditCardAccFile =[]
 
   function collectBudget(){
     let budgetAmounts = []
+    let newBudgetArray = new Map()
     document.querySelectorAll('.budgetAmount').forEach(element => {
       budgetAmounts.push(element.value)
     })
 
-    getCategories().forEach(element=> element[3] = parseFloat(budgetAmounts.shift()).toFixed(2))
-    jQuery('#myModal').modal('toggle')
+    getCategories().forEach(element=> 
+      {
+        element[3] = parseFloat(budgetAmounts.shift()).toFixed(2)
+        
+        newBudgetArray.set(element[0], element[3])
+      })
+      categoryBudgetMap = new Map([...categoryBudgetMap, ...newBudgetArray])
+      jQuery('#myModal').modal('toggle')
 
     buildCategoryBarChartObj(statementsByYear[findCurrentYearIndex()][1][findCurrentMonthIndex()])
 
