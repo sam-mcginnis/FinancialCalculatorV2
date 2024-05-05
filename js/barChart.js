@@ -93,5 +93,5 @@ const config = {
       document.getElementById('categoryMyChart'),
       categoryConfig
     );
-  
 
+  var categoryBudgetMap = new Map()
