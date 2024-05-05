@@ -13,7 +13,7 @@ var currentTickMonth = 0
 
 //statement file upload
 //converts debit and credit files
-//into arraysF
+//into arrays
 var debitCardAccFile = []
 var creditCardAccFile =[]
 
