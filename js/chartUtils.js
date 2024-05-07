@@ -649,9 +649,11 @@ var creditCardAccFile =[]
                   year: "Year"
                 }
               document.querySelectorAll('.yearHeader').forEach(element => element.innerHTML = "Year")
-              document.getElementById("monthHeader").innerHTML = "Month"
+              document.querySelectorAll('.monthHeader').forEach(element => element.innerHTML = "Month")
               removeData(myBarChart)
+              removeData(categoryMyBarChart)
               removeData(myLineChart)
+              removeData(categoryMyLineChart)
               removeData(myDoughnutChart)
               }
             }            
