@@ -17,11 +17,22 @@ var currentTickMonth = 0
 var debitCardAccFile = []
 var creditCardAccFile =[]
 
-  function getTotalIncome(debitCardAccFile){
-    let stripped = debitCardAccFile[2][2].replace(/,/g, "");
-    let number = parseFloat(stripped);
-    return number
-  }
+function getTotalIncome(debitCardAccFile){
+  let totalIncome= 0
+
+  for(let i = 8; i < debitCardAccFile.length; i++){  
+    let stripped = (debitCardAccFile[i][2] != undefined) ?  parseFloat(debitCardAccFile[i][2].replace(/,/g, "")) : 0
+
+    if(stripped > 0){
+        if(!checkIfRejected(debitCardAccFile[i][1].toLowerCase(), rejectedDescriptionsFile[0])){
+          totalIncome +=  parseFloat(debitCardAccFile[i][2].replace(/,/g, ""))
+        }
+      }
+    }
+  
+  return Math.abs(parseFloat(totalIncome).toFixed(2))
+}
+
 
   function getTotalDebits(debitCardAccFile, categoriesObj){
     let totalDebit= 0
@@ -29,7 +40,7 @@ var creditCardAccFile =[]
     for(let i = 8; i < debitCardAccFile.length; i++){  
       let stripped = (debitCardAccFile[i][2] != undefined) ?  parseFloat(debitCardAccFile[i][2].replace(/,/g, "")) : 1
 
-      if(stripped < 0){
+      if(stripped <= 0){
           if(!checkIfRejected(debitCardAccFile[i][1].toLowerCase(), rejectedDescriptionsFile[0])){
             calculateDebitCategories(debitCardAccFile[i], categoriesObj)
             totalDebit +=  parseFloat(debitCardAccFile[i][2].replace(/,/g, ""))
@@ -45,7 +56,7 @@ var creditCardAccFile =[]
   
     for(let i = 1; i < creditCardAccFile.length; i++){
       let stripped = (creditCardAccFile[i][4] != undefined) ? parseFloat(creditCardAccFile[i][4].replace(/,/g, "")) : 1
-      if(stripped < 0){
+      if(stripped <= 0){
         if(!checkIfRejected(creditCardAccFile[i][2].toLowerCase(), rejectedDescriptionsFile[0])){
           calculateCreditCategories(creditCardAccFile[i], categoriesObj)
           totalCredit += parseFloat(creditCardAccFile[i][4].replace(/,/g, ""))
