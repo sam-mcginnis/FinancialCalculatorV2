@@ -58,6 +58,7 @@ const categoryLineConfig = {
         text: 'Category Expenditure Trend'
       }
     },
+    // call back to toggle on and off all categories by clicking chart
     onClick: (legendItem) => {
       var index = legendItem.datasetIndex;
   var ci = categoryMyLineChart;
