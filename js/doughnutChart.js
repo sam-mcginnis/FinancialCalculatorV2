@@ -24,9 +24,14 @@ const doughnutData = {
         tooltip: {
           callbacks: {
             label: function(context) {
-              values = statementsByYear[findCurrentYearIndex()][1]
-              percentage = Math.round((context.parsed / (values[findCurrentMonthIndex()].graph.DC_Spent + values[findCurrentMonthIndex()].graph.CC_Spent)) * 100);
-              return context.label + ': $' + context.formattedValue + ' (' + percentage + '%)';
+              let values = statementsByYear[findCurrentYearIndex()][1]
+              let spentPercentage = Math.round((context.parsed / (values[findCurrentMonthIndex()].graph.DC_Spent + values[findCurrentMonthIndex()].graph.CC_Spent)) * 100)
+              let incomePercentage = Math.round((context.parsed / values[findCurrentMonthIndex()].graph.earned) * 100)
+              let newLabel = [context.label + ": $" + context.formattedValue]
+
+              newLabel.push("Spent: " + spentPercentage + "%")
+              newLabel.push("Income: " + incomePercentage + "%")
+              return newLabel
           }
           }
       }
