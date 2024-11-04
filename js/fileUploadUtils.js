@@ -127,8 +127,18 @@ function processData(files){
           }
           else{
             let categoryList = []
+            let trimmedResults = []
+
             categoryList.push(files[i].name.substring(0, files[i].name.indexOf(".")))
-            categoryList.push(results.data)
+      
+            results.data[0].forEach(item => {
+              item = item.trim()
+              if(!isEmpty(item)){
+                trimmedResults.push(item)
+              }
+            })
+
+            categoryList.push(trimmedResults)
             spendingCategories.push(categoryList)
           }
         }
@@ -164,6 +174,9 @@ function isToggleChecked(){
   }
 }
 
+function isEmpty(str) {
+  return (!str || str.length === 0 );
+}
 
 
 $("#toggleTitleCheckbox").addEventListener("click", isToggleChecked)
