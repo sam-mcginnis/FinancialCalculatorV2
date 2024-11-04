@@ -130,13 +130,7 @@ function processData(files){
             let trimmedResults = []
 
             categoryList.push(files[i].name.substring(0, files[i].name.indexOf(".")))
-            // results.data.forEach((element) => {
-            //   element = element.trim()
-            //   if(!isEmpty(element)){
-            //     trimmedResults.push(element)
-            //   }
-            // });
-
+      
             results.data[0].forEach(item => {
               item = item.trim()
               if(!isEmpty(item)){
