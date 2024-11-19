@@ -135,7 +135,7 @@ function processData(files){
               if(!isEmpty(item)){
                 return item
               }
-            })
+            }).filter(item => item) 
 
             categoryList.push(results.data)
             spendingCategories.push(categoryList)
