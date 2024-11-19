@@ -127,18 +127,17 @@ function processData(files){
           }
           else{
             let categoryList = []
-            let trimmedResults = []
 
             categoryList.push(files[i].name.substring(0, files[i].name.indexOf(".")))
       
-            results.data[0].forEach(item => {
+            results.data[0] = results.data[0].map(item => {
               item = item.trim()
               if(!isEmpty(item)){
-                trimmedResults.push(item)
+                return item
               }
-            })
+            }).filter(item => item) 
 
-            categoryList.push(trimmedResults)
+            categoryList.push(results.data)
             spendingCategories.push(categoryList)
           }
         }
