@@ -68,11 +68,33 @@ function getTotalCredits(creditCardAccFile, categoriesObj) {
 }
 
 function checkOtherCatgory(statement) {
+  // First, check for high-priority categories (like Vacation)
+  // These categories should trump all others when their keywords are found
+  const highPriorityCategories = ['Vacation'];
+  
+  for (let categoryName of highPriorityCategories) {
+    for (let j = 0; j < spendingCategories.length; j++) {
+      if (spendingCategories[j][0].toLowerCase() === categoryName.toLowerCase()) {
+        let category = spendingCategories[j][1]
+        for (let k = 0; k < category[0].length; k++) {
+          if (statement.toLowerCase().includes(category[0][k].toLowerCase())) {
+            return spendingCategories[j]
+          }
+        }
+      }
+    }
+  }
+  
+  // If no high-priority category matches, check all other categories
   for (let j = 0; j < spendingCategories.length; j++) {
-    let category = spendingCategories[j][1]
-    for (let k = 0; k < category[0].length; k++) {
-      if (statement.includes(category[0][k])) {
-        return spendingCategories[j]
+    // Skip high-priority categories since we already checked them
+    if (!highPriorityCategories.some(priority => 
+        spendingCategories[j][0].toLowerCase() === priority.toLowerCase())) {
+      let category = spendingCategories[j][1]
+      for (let k = 0; k < category[0].length; k++) {
+        if (statement.toLowerCase().includes(category[0][k].toLowerCase())) {
+          return spendingCategories[j]
+        }
       }
     }
   }
